@@ -1,5 +1,5 @@
 class Transaction < ApplicationRecord
-  belongs_to :acount
+  belongs_to :account
   belongs_to :category
 
   enum type: {
