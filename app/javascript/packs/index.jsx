@@ -5,9 +5,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import Header from './Components/Header/Header'
+import AccountPage from './Pages/AccountPage/AccountPage'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const Hello = props => (
-  <div>Hello {props.name}!</div>
+  <div class="bg-gray-100 dark:bg-gray-900 dark:text-white text-gray-600 h-screen flex overflow-hidden text-sm">
+    <div class="flex-grow overflow-hidden h-full flex flex-col">
+      <BrowserRouter >
+        <Header />
+        <Routes>
+          <Route path="/accounts" element={<AccountPage />} />
+        </Routes>      
+      </BrowserRouter>
+    </div>
+  </div>
 )
 
 Hello.defaultProps = {
