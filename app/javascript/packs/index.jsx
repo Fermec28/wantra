@@ -10,12 +10,12 @@ import AccountPage from './Pages/AccountPage/AccountPage'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const Hello = props => (
-  <div class="bg-gray-100 dark:bg-gray-900 dark:text-white text-gray-600 h-screen flex overflow-hidden text-sm">
-    <div class="flex-grow overflow-hidden h-full flex flex-col">
+  <div className="bg-gray-100 dark:bg-gray-900 dark:text-white text-gray-600 h-screen flex overflow-hidden text-sm">
+    <div className="flex-grow overflow-hidden h-full flex flex-col">
       <BrowserRouter >
         <Header />
         <Routes>
-          <Route path="/accounts" element={<AccountPage />} />
+          <Route path="/accounts/*" element={<AccountPage />} />
         </Routes>      
       </BrowserRouter>
     </div>

@@ -5,12 +5,11 @@ import { Routes, Route } from "react-router-dom";
 
 const AccountPage = () => {
     return (
-        <div class="flex-grow flex overflow-x-hidden">
+        <div className="flex-grow flex overflow-x-hidden">
           <SideBar />
           <Routes>
             <Route path="/:accountId"  element={<AccountDetail />} />
-          </Routes>
-          
+          </Routes> 
         </div>
     )
 }
