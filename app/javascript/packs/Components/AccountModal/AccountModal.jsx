@@ -2,10 +2,10 @@ import React from "react";
 import Modal from "../../shared/Modal";
 
 
-const AccountModal = ()=>{
+const AccountModal = ({onToggle, onSubmit})=>{
   return(
-  <Modal id="account-modal">
-    <form className="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="#">
+  <Modal title="Fer" onToggle={onToggle} onSubmit={onSubmit}>
+    <form action="#">
         <h3 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
         <div>
             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>

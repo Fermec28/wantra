@@ -1,20 +1,87 @@
 import React from "react";
+import styled from 'styled-components';
 
-const Modal =  ({id, children}) => {
+const OverlayContainer = styled.div`
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgb(81 51 188 / 55%);
+z-index: 2;
+display: flex;
+align-items: center;
+text-align: center;
+justify-content: center;
+`;
+
+const ModalContainer = styled.div`
+width: 45vw;
+height: 70vh;
+background-color: white;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+`
+const ModalHeaderContainer = styled.div`
+height: 45px;
+color: white;
+border-bottom: ##b5a5d8fc 1px solid;
+background-color: #b5a5d8fc
+`
+
+const ModalFooterContainer = styled.div`
+height: 45px;
+border-top: ##b5a5d8fc 1px solid;
+display: flex;
+color: black;
+justify-content: space-evenly;
+`
+
+const ModalTitle = styled.p`
+padding: 10px;
+text-transform: uppercase;
+`
+const ModalHeader = ({title})=> {
+  return(
+    <ModalHeaderContainer>
+      <ModalTitle>{title}</ModalTitle>
+    </ModalHeaderContainer>
+  )
+}
+
+const ModalFooter = ({onSubmit, onClose})=> {
+  return(
+    <ModalFooterContainer>
+      <button onClick={onSubmit}>SUBMIT</button>
+      <button onClick={onClose}>CANCEL</button>
+    </ModalFooterContainer>
+  )
+}
+
+const Modal =  ({children}) => {
 	return (
-		<div id={id} tabIndex="-1" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-				<div className="relative p-4 w-full max-w-md h-full md:h-auto">
-						<div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-								<div className="flex justify-end p-2">
-										<button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle={id}>
-												<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>  
-										</button>
-								</div>
-                {children}
-						</div>
-				</div>
-		</div> 
+    <OverlayContainer>
+      <ModalContainer>
+        {children}
+      </ModalContainer>
+    </OverlayContainer>	
 	)
 }
 
-export default Modal
+Modal.Footer = ModalFooter
+Modal.Header = ModalHeader
+
+const BasicModal = ({title, onToggle, onSubmit, children})=>{
+  return(
+    <Modal>
+      <ModalHeader title={title}/>
+      {children}
+      <ModalFooter onClose={onToggle} onSubmit={onSubmit}/>
+    </Modal>
+  )
+}
+
+export default BasicModal

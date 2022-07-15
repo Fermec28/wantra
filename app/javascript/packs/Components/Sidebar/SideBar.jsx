@@ -6,6 +6,10 @@ import { getAccounts } from '../../api/accounts'
 
 const SideBar = () => {
   const [entities, setEntities] = useState([])
+  const [accountModal, setAccountModal] = useState(false)
+
+
+  const toggleAccountModal = () => { setAccountModal((state) => !state)}
 
   useEffect(()=>{ 
     const handleAccounts = async ()=>{
@@ -35,7 +39,6 @@ const SideBar = () => {
               {entities.map((card)=> <CardAccount key={card.id} {...card} />)}
           </div>
       </div>
-      <AccountModal />
     </>
     
   )
