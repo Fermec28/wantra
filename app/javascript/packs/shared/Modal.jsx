@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const OverlayContainer = styled.div`
 position: fixed;
@@ -24,13 +25,13 @@ background-color: white;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-`
+`;
 const ModalHeaderContainer = styled.div`
 height: 45px;
 color: white;
 border-bottom: ##b5a5d8fc 1px solid;
 background-color: #b5a5d8fc
-`
+`;
 
 const ModalFooterContainer = styled.div`
 height: 45px;
@@ -38,50 +39,74 @@ border-top: ##b5a5d8fc 1px solid;
 display: flex;
 color: black;
 justify-content: space-evenly;
-`
+`;
 
 const ModalTitle = styled.p`
 padding: 10px;
 text-transform: uppercase;
-`
+`;
 const ModalHeader = ({title})=> {
-  return(
+  return (
     <ModalHeaderContainer>
       <ModalTitle>{title}</ModalTitle>
     </ModalHeaderContainer>
-  )
-}
+  );
+};
 
-const ModalFooter = ({onSubmit, onClose})=> {
-  return(
+ModalHeader.propTypes = {
+  title: PropTypes.string.required,
+};
+
+const ModalFooter = ({onSubmit = ()=> {}, onClose = ()=> {}})=> {
+  return (
     <ModalFooterContainer>
       <button onClick={onSubmit}>SUBMIT</button>
       <button onClick={onClose}>CANCEL</button>
     </ModalFooterContainer>
-  )
-}
+  );
+};
 
-const Modal =  ({children}) => {
-	return (
+ModalFooter.propTypes = {
+  onSubmit: PropTypes.func,
+  onClose: PropTypes.func,
+};
+
+const Modal = ({children}) => {
+  return (
     <OverlayContainer>
       <ModalContainer>
         {children}
       </ModalContainer>
-    </OverlayContainer>	
-	)
-}
+    </OverlayContainer>
+  );
+};
 
-Modal.Footer = ModalFooter
-Modal.Header = ModalHeader
+Modal.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
-const BasicModal = ({title, onToggle, onSubmit, children})=>{
-  return(
+Modal.Footer = ModalFooter;
+Modal.Header = ModalHeader;
+
+const BasicModal = ({
+  title, onToggle=()=>{},
+  onSubmit=()=>{},
+  children=()=>{},
+})=>{
+  return (
     <Modal>
       <ModalHeader title={title}/>
       {children}
       <ModalFooter onClose={onToggle} onSubmit={onSubmit}/>
     </Modal>
-  )
-}
+  );
+};
 
-export default BasicModal
+BasicModal.propTypes = {
+  title: PropTypes.string.isRequired,
+  onToggle: PropTypes.func,
+  onSubmit: PropTypes.func,
+  children: PropTypes.node.isRequired,
+};
+
+export default BasicModal;

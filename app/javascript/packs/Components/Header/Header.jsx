@@ -1,11 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable max-len */
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-const linkClasses = "cursor-pointer h-full border-b-2 border-transparent inline-flex items-center mr-8"
+const linkClasses = 'cursor-pointer h-full border-b-2 border-transparent inline-flex items-center mr-8';
 const Header =() => {
-
-    return(<div className="h-16 lg:flex w-full border-b border-gray-200 dark:border-gray-800 hidden px-10">
-      <div className="flex h-full text-gray-600 dark:text-gray-400">
+  return (<div className="h-16 lg:flex w-full border-b border-gray-200 dark:border-gray-800 hidden px-10">
+    <div className="flex h-full text-gray-600 dark:text-gray-400">
       <Link className={linkClasses} to="/profile">Profile</Link>
       <Link className={linkClasses} to="/accounts">Accounts</Link>
       <Link className={linkClasses} to="/categories">Categories</Link>
@@ -25,7 +25,7 @@ const Header =() => {
         </svg>
       </button>
     </div>
-  </div>)
-}
+  </div>);
+};
 
-export default Header
+export default Header;
