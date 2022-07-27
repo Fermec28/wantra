@@ -12,9 +12,9 @@ const CardAccount = ({id, name, ammount, img=DEFAULT_IMAGE})=> {
         <img src={img} className="w-7 h-7 mr-2 rounded-full" alt="profile" />
         {name}
       </div>
-      <div classNames="flex items-center w-full">
-        <div classNames="text-xs py-1 px-2 leading-none dark:bg-gray-900 bg-blue-100 text-blue-500 rounded-md">Design</div>
-        <div classNames="ml-auto text-xs text-gray-500">{ammount}</div>
+      <div classnames="flex items-center w-full">
+        <div classnames="text-xs py-1 px-2 leading-none dark:bg-gray-900 bg-blue-100 text-blue-500 rounded-md">Design</div>
+        <div classnames="ml-auto text-xs text-gray-500">{ammount}</div>
       </div>
     </Link>
   );

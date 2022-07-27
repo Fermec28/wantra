@@ -54,7 +54,7 @@ const ModalHeader = ({title})=> {
 };
 
 ModalHeader.propTypes = {
-  title: PropTypes.string.required,
+  title: PropTypes.string.isRequired,
 };
 
 const ModalFooter = ({onSubmit = ()=> {}, onClose = ()=> {}})=> {
@@ -89,7 +89,8 @@ Modal.Footer = ModalFooter;
 Modal.Header = ModalHeader;
 
 const BasicModal = ({
-  title, onToggle=()=>{},
+  title,
+  onToggle=()=>{},
   onSubmit=()=>{},
   children=()=>{},
 })=>{
