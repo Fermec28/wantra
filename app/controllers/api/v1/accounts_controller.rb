@@ -4,14 +4,14 @@ class Api::V1::AccountsController < ApplicationController
   def index
     # must to be filtered by user
     @accounts = Account.all
-    render json: @accounts
+    render json: AccountBlueprint.render(@accounts)
   end
 
   # GET /accounts/1
   # GET /accounts/1.json
   def show
     if @account
-      render json: @account
+      render json:AccountBlueprint.render(@account)
     else
       render json: @account.errors
     end
@@ -22,7 +22,7 @@ class Api::V1::AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
-      render json: @account, status: :created
+      render json: AccountBlueprint.render(@account), status: :created
     else
       render json: { errors: @account.errors }
     end
