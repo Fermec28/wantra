@@ -45,6 +45,12 @@ const ModalTitle = styled.p`
 padding: 10px;
 text-transform: uppercase;
 `;
+
+
+const ModalBody = styled.div`
+overflow-y: scroll;
+margin-top: 1rem;
+`;
 const ModalHeader = ({title})=> {
   return (
     <ModalHeaderContainer>
@@ -60,8 +66,8 @@ ModalHeader.propTypes = {
 const ModalFooter = ({onSubmit = ()=> {}, onClose = ()=> {}})=> {
   return (
     <ModalFooterContainer>
-      <button onClick={onSubmit}>SUBMIT</button>
       <button onClick={onClose}>CANCEL</button>
+      <button type="submit" onClick={onSubmit}>SUBMIT</button>
     </ModalFooterContainer>
   );
 };
@@ -87,6 +93,7 @@ Modal.propTypes = {
 
 Modal.Footer = ModalFooter;
 Modal.Header = ModalHeader;
+Modal.Body = ModalBody;
 
 const BasicModal = ({
   title,
@@ -97,7 +104,9 @@ const BasicModal = ({
   return (
     <Modal>
       <ModalHeader title={title}/>
-      {children}
+      <ModalBody>
+        {children}
+      </ModalBody>
       <ModalFooter onClose={onToggle} onSubmit={onSubmit}/>
     </Modal>
   );
@@ -110,4 +119,4 @@ BasicModal.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default BasicModal;
+export default Modal;

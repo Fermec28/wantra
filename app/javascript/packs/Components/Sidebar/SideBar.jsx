@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import CardAccount from '../CardAccount/CardAccount';
-import {getAccounts} from '../../api/accounts';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -35,20 +34,7 @@ text-align: center;
 border-top-width: 1px;
 `;
 
-const SideBar = ({onClick=()=>{}}) => {
-  const [entities, setEntities] = useState([]);
-
-
-  useEffect(()=>{
-    const handleAccounts = async ()=>{
-      const {data, status} = await getAccounts();
-      if (status == 200) {
-        setEntities(data);
-      }
-    };
-    handleAccounts();
-  }, []);
-
+const SideBar = ({onClick=()=>{}, entities=[]}) => {
   return (
     <>
       <SideBarContainer>
@@ -67,7 +53,7 @@ const SideBar = ({onClick=()=>{}}) => {
         </SideBarHeaderContainer>
         <SideBarBodyContainer>
           <div className="space-y-4 mt-3">
-            {entities.map((card)=> <CardAccount key={card.id} {...card} />)}
+            {entities?.map((card)=> <CardAccount key={card.id} {...card} />)}
           </div>
         </SideBarBodyContainer>
         <SideBarFooterContainer>
@@ -81,6 +67,7 @@ const SideBar = ({onClick=()=>{}}) => {
 
 SideBar.propTypes ={
   onClick: PropTypes.func,
+  entities: PropTypes.array,
 };
 
 export default SideBar;
