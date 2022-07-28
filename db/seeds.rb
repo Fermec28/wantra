@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -19,7 +21,7 @@ CURRENCIES = [
   { name: 'Belize Dollar', code: 'BZD',	symbol: 'BZ$' },
   { name: 'Bermuda Dollar', code: 'BMD',	symbol: '$' },
   { name: 'Bolivia Bolíviano', code: 'BOB',	symbol: '$b' },
-  { name: 'Bosnia and Herzegovina Convertible Mark', code: 'BAM',	symbol: 'KM'},
+  { name: 'Bosnia and Herzegovina Convertible Mark', code: 'BAM',	symbol: 'KM' },
   { name: 'Botswana Pula', code: 'BWP',	symbol: 'P' },
   { name: 'Bulgaria Lev', code: 'BGN',	symbol: 'лв' },
   { name: 'Brazil Real', code: 'BRL',	symbol: 'R$' },
@@ -122,5 +124,6 @@ CURRENCIES = [
 ].freeze
 
 CURRENCIES.each do |currency|
-  Currency.create_or_find_by(name: currency[:name], code: currency[:code], symbol: currency[:symbol])
+  Currency.create_or_find_by(name: currency[:name], code: currency[:code],
+                             symbol: currency[:symbol])
 end

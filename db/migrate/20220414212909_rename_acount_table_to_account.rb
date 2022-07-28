@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameAcountTableToAccount < ActiveRecord::Migration[6.1]
   def self.up
     rename_table :acounts, :accounts

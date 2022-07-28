@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+      - 'db/seeds.rb'
+      - 'bin/*'
+      - config/initializers/*.rb
+      - Gemfile
+      
+Documentation:
+  Enabled: false
+Layout/LineLength:
+  Max: 99
+Metrics/MethodLength:
+  Max: 15
+Metrics/BlockLength:
+  Max: 40
