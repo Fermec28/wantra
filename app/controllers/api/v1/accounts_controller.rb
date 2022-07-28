@@ -20,19 +20,17 @@ class Api::V1::AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
-    @account = Account.new(beer_params)
-
+    @account = Account.new(account_params)
     if @account.save
-      render json: @account
+      render json: @account, status: :created
     else
-      render json: @account.errors
+      render json: { errors: @account.errors }
     end
   end
 
   # PATCH/PUT /accounts/1
   # PATCH/PUT /accounts/1.json
-  def update
-  end
+  def update; end
 
   # DELETE /accounts/1
   # DELETE /accounts/1.json
@@ -49,6 +47,6 @@ class Api::V1::AccountsController < ApplicationController
   end
 
   def account_params
-    params.permit(:name, :description, :total_amount, :currency)
+    params.require(:account).permit(:name, :description, :total_amount, :currency_id)
   end
 end
