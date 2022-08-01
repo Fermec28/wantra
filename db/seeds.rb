@@ -127,3 +127,30 @@ CURRENCIES.each do |currency|
   Currency.create_or_find_by(name: currency[:name], code: currency[:code],
                              symbol: currency[:symbol])
 end
+
+
+CATEGORIES = [
+  {label: "Comida y Bebida"},
+  {label: "Facturas y Utilidades"},
+  {label: "Transporte"},
+  {label: "Compras"},
+  {label: "Amigos y Amor"},
+  {label: "Entretenimiento"},
+  {label: "Viajes"},
+  {label: "Medico"},
+  {label: "Regalos y Donaciones"},
+  {label: "Familia"},
+  {label: "Educacion"},
+  {label: "Invertir"},
+  {label: "Tasas e Impuestos"},
+  {label: "Retirada"},
+  {label: "Salario"},
+  {label: "Venta"},
+  {label: "Otros"},
+  {label: "Prestamo"},
+  {label: "Deuda"},
+].freeze
+
+CATEGORIES.each do |category|
+  Category.create_or_find_by(label: category[:label])
+end
