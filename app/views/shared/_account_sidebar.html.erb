@@ -1,15 +1,8 @@
 <div class="bg-white shadow rounded-2xl p-4 space-y-4">
   <h2 class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Mis cuentas</h2>
-
-  <% @accounts.each do |account| %>
-    <div class="flex justify-between items-center border-b pb-2">
-      <div>
-        <p class="text-sm font-medium text-gray-800"><%= account.name %></p>
-        <p class="text-xs text-gray-500 uppercase tracking-wider"><%= account.balance_currency %></p>
-      </div>
-      <div class="text-sm font-semibold text-gray-900 text-right whitespace-nowrap">
-        <%= number_to_currency(account.balance, unit: "#{account.balance_currency} ") %>
-      </div>
-    </div>
-  <% end %>
+  <div class="divide-y divide-gray-200">
+    <% @accounts.each do |account| %>
+      <%= render partial: '/accounts/card', locals: { account: account } %>
+    <% end %>
+  </div>
 </div>

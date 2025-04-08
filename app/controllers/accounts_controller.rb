@@ -18,9 +18,26 @@ class AccountsController < ApplicationController
     end
   end
 
+  def update
+    @account = current_user.accounts.find(params[:id])
+
+    if @account.update(account_update_params)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to accounts_path, notice: "Cuenta actualizada." }
+      end
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def account_params
     params.require(:account).permit(:name, :balance_currency)
+  end
+
+  def account_update_params
+    params.require(:account).permit(:name)
   end
 end

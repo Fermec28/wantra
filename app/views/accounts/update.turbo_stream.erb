@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@account) do %>
+  <%= render partial: "accounts/card", locals: { account: @account } %>
+<% end %>

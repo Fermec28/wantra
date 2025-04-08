@@ -1,0 +1,39 @@
+<%= turbo_frame_tag dom_id(account) do %>
+  <div data-controller="inline-edit" class="py-2">
+    <!-- Cabecera: Nombre + ícono edición -->
+    <div class="flex justify-between items-center mb-1">
+      <!-- Vista: nombre -->
+      <div data-inline-edit-target="display" class="flex-1">
+        <h3 class="text-sm font-semibold text-gray-800"><%= account.name %></h3>
+      </div>
+
+      <!-- Editar nombre -->
+      <div data-inline-edit-target="form" class="hidden flex-1">
+        <%= form_with model: account, url: account_path(account), method: :patch, data: { turbo_frame: dom_id(account) }, html: { class: "w-full" } do |f| %>
+          <%= f.text_field :name,
+            class: "text-sm font-medium text-gray-800 border border-gray-300 rounded px-2 py-1 w-full focus:ring focus:ring-blue-300",
+            data: {
+              inline_edit_target: "input",
+              action: "keydown.enter->inline-edit#submit blur->inline-edit#cancel"
+            },
+            value: account.name,
+            autofocus: true %>
+        <% end %>
+      </div>
+
+      <button type="button" data-action="inline-edit#activate" class="text-gray-400 hover:text-blue-600 text-xs ml-2">
+        ✏️
+      </button>
+    </div>
+
+    <!-- Moneda y saldo -->
+    <div class="flex justify-between items-end">
+      <p class="text-xs text-gray-500 uppercase tracking-wider">
+        <%= account.balance_currency %>
+      </p>
+      <p class="text-sm font-semibold text-gray-900 whitespace-nowrap">
+        <%= number_to_currency(account.balance, unit: "#{account.balance_currency} ") %>
+      </p>
+    </div>
+  </div>
+<% end %>
