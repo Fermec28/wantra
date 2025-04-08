@@ -1,0 +1,25 @@
+<h1 class="text-2xl font-semibold mb-4">Mis cuentas</h1>
+
+<%= link_to "➕ Nueva cuenta", new_account_path, class: "bg-green-500 text-white px-4 py-2 rounded mb-4 inline-block" %>
+
+<table class="w-full text-left bg-white shadow rounded">
+  <thead>
+    <tr class="bg-gray-100 text-sm text-gray-600">
+      <th class="p-3">Nombre</th>
+      <th class="p-3">Moneda</th>
+      <th class="p-3 text-right">Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr class="border-t">
+        <td class="p-3 font-medium"><%= account.name %></td>
+        <td class="p-3"><%= account.balance_currency %></td>
+        <td class="p-3 text-right"><%= number_to_currency(account.balance, unit: account.balance_currency + " ") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= pie_chart({"Comida" => 100, "Transporte" => 50}) %>

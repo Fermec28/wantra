@@ -1,0 +1,55 @@
+<%= turbo_frame_tag "modal" do %>
+  <div data-controller="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="w-full max-w-lg rounded-xl shadow-lg p-6 relative bg-white">
+      <h2 class="text-lg font-semibold mb-4">Nuevo Presupuesto</h2>
+
+      <%= form_with model: @budget, url: budgets_path, method: :post, data: { turbo_frame: "modal" }, class: "space-y-4" do |f| %>
+        <!-- Categoría (tag_name) -->
+        <div>
+          <%= f.label :tag_name, "Categoría", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :tag_name,
+                current_user.tags.pluck(:name),
+                { prompt: "Seleccionar" },
+                class: "mt-1 block w-full border-gray-300 rounded shadow-sm" %>
+        </div>
+
+        <!-- Mes -->
+        <div>
+          <%= f.label :month, "Mes", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.month_field :month, value: Date.today.beginning_of_month,
+                class: "mt-1 block w-full border-gray-300 rounded shadow-sm" %>
+        </div>
+
+        <!-- Monto -->
+        <div>
+          <%= f.label :amount, "Monto", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.number_field :amount, step: 0.01,
+                class: "mt-1 block w-full border-gray-300 rounded shadow-sm" %>
+        </div>
+
+        <!-- Moneda -->
+        <div>
+          <%= f.label :amount_currency, "Moneda", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :amount_currency,
+                Money::Currency.table.map { |code, c| [c[:name], code.upcase] },
+                { prompt: "Seleccionar" },
+                class: "mt-1 block w-full border-gray-300 rounded shadow-sm" %>
+        </div>
+
+        <!-- Repetir automáticamente -->
+        <div class="flex items-center gap-2">
+          <%= f.check_box :repeat_monthly, class: "rounded" %>
+          <%= f.label :repeat_monthly, "Repetir cada mes", class: "text-sm text-gray-700" %>
+        </div>
+
+        <!-- Botón -->
+        <div>
+          <%= f.submit "Guardar presupuesto", class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" %>
+        </div>
+      <% end %>
+
+      <%= link_to "✕", "#", data: { action: "click->modal#close" },
+          class: "absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl" %>
+    </div>
+  </div>
+<% end %>

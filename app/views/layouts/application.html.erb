@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Wantra" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all styesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "type": "module", "data-turbo-track": "reload" %>
+
+  </head>
+
+  <body class="bg-gray-50 text-gray-900 font-sans antialiased">
+    <header class="bg-white shadow p-4 mb-6">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="text-xl font-bold text-blue-600">
+          <%= link_to "💸 Wantra", root_path %>
+        </div>
+
+        <% if user_signed_in? %>
+          <nav class="space-x-4">
+            <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, data: { confirm: "¿Seguro que querés cerrar sesión?" } %>
+          </nav>
+        <% end %>
+      </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4">
+      <% if notice %>
+        <div class="mb-4 bg-green-100 text-green-700 px-4 py-2 rounded">
+          <%= notice %>
+        </div>
+      <% end %>
+
+      <% if alert %>
+        <div class="mb-4 bg-red-100 text-red-700 px-4 py-2 rounded">
+          <%= alert %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </main>
+
+    <div class="fixed bottom-6 right-6 z-50">
+      <div data-controller="fab" class="relative">
+        <!-- Botón principal -->
+        <button
+          data-action="click->fab#toggle"
+          class="w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center text-3xl">
+          +
+        </button>
+
+        <!-- Menú desplegable -->
+        <div
+          data-fab-target="menu"
+          class="absolute bottom-16 right-0 bg-white rounded-xl shadow-lg p-3 space-y-2 hidden transition-all">
+          <%= link_to "Nueva transacción", new_transaction_path, data: { turbo_frame: "modal" }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded" %>
+          <%= link_to "Nueva cuenta", new_account_path, data: { turbo_frame: "modal" }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded" %>
+          <%= link_to "Nuevo presupuesto", new_budget_path, data: { turbo_frame: "modal" }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded" %>
+
+        </div>
+      </div>
+    </div>
+    <%= turbo_frame_tag "modal", target: "_top" %>
+  </body>
+</html>

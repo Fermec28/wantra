@@ -1,0 +1,29 @@
+<div class="bg-white rounded-2xl shadow p-6">
+  <h2 class="text-sm font-semibold text-gray-600 mb-4">
+    Distribución de gastos por categoría
+  </h2>
+
+  <% if @tag_distribution_by_currency.any? %>
+    <% @tag_distribution_by_currency.each do |currency, data| %>
+      <div class="mb-6">
+        <h3 class="text-sm font-medium text-gray-600 mb-2">
+          <%= currency %>
+        </h3>
+
+        <%= pie_chart data,
+          height: "250px",
+          donut: true,
+          library: {
+            legend: { position: "right" },
+            tooltip: {
+              callbacks: {
+                label: "function(context) { return context.label + ': ' + context.raw.toFixed(2) + ' #{currency}'; }"
+              }
+            }
+          } %>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-sm text-gray-500">No hay gastos registrados para este período.</p>
+  <% end %>
+</div>

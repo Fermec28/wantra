@@ -1,0 +1,67 @@
+<%= form_with url: transactions_path, method: :get, local: true, data: { controller: "filters" }, class: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4" do %>
+  <!-- Tipo -->
+  <div>
+    <label class="text-sm font-medium text-gray-700 flex items-center gap-1">
+      <%= render "icons/adjustments" %> Tipo
+    </label>
+    <%= select_tag :txn_kind,
+      options_for_select([["Todos", ""], ["Ingreso", "income"], ["Gasto", "expense"], ["Transferencia", "transfer"]], params[:kind]),
+      class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm" %>
+  </div>
+
+  <!-- Cuenta -->
+  <div>
+    <label class="text-sm font-medium text-gray-700 flex items-center gap-1">
+      <%= render "icons/wallet" %> Cuenta
+    </label>
+    <%= select_tag :account_id,
+      options_for_select([["Todas", ""]] + accounts.map { |a| [a.name, a.id] }, params[:account_id]),
+      class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm" %>
+  </div>
+
+  <!-- Etiquetas -->
+  <div>
+    <label class="text-sm font-medium text-gray-700 flex items-center gap-1">
+      <%= render "icons/tag" %> Etiquetas
+    </label>
+    <%= select_tag "tag[]",
+      options_from_collection_for_select(current_user.tags, :name, :name, Array(params[:tag])),
+      multiple: true,
+      data: { controller: "tag-select" },
+      class: "w-full border-gray-300 rounded shadow-sm bg-white text-sm"
+    %>
+  </div>
+
+  <!-- Selector de período -->
+  <div>
+    <label class="text-sm font-medium text-gray-700 flex items-center gap-1">
+      <%= render "icons/calendar" %> Período
+    </label>
+    <%= select_tag :period,
+      options_for_select([["Semana", "week"], ["Mes", "month"], ["Año", "year"], ["Custom", "custom"]], @period),
+      class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm",
+      data: { filters_target: "period", action: "filters#toggleCustomFields" } %>
+  </div>
+
+
+  <div data-filters-target="customFields" class="sm:col-span-2 grid grid-cols-2 gap-4" hidden>
+    <div>
+      <label class="text-sm font-medium text-gray-700 flex items-center gap-1">
+        <%= render "icons/calendar" %> Desde
+      </label>
+      <%= date_field_tag :from, params[:from], class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm" %>
+    </div>
+
+    <div>
+      <label class="text-sm font-medium text-gray-700 flex items-center gap-1">
+        <%= render "icons/calendar" %> Hasta
+      </label>
+      <%= date_field_tag :to, params[:to], class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm" %>
+    </div>
+  </div>
+
+  <!-- Botón -->
+  <div class="flex items-end">
+    <%= submit_tag "Aplicar filtros", class: "w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition" %>
+  </div>
+<% end %>

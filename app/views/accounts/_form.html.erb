@@ -1,0 +1,15 @@
+<%= form_with model: @account, local: true, class: "space-y-4 max-w-md" do |f| %>
+  <div>
+    <%= f.label :name, "Nombre", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_field :name, class: "mt-1 block w-full border-gray-300 rounded shadow-sm" %>
+  </div>
+
+  <div>
+    <%= f.label :balance_currency, "Moneda", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.select :balance_currency, options_for_select(currency_options_for_select, @account.balance_currency), {}, class: "mt-1 block w-full border-gray-300 rounded shadow-sm" %>
+  </div>
+
+  <div>
+    <%= f.submit "Crear Cuenta", class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" %>
+  </div>
+<% end %>

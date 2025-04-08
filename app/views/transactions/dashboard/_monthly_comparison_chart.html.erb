@@ -1,0 +1,16 @@
+<div class="bg-white rounded-2xl shadow p-6">
+  <h2 class="text-sm font-semibold text-gray-600 mb-4">
+    Comparación mensual de ingresos y gastos (últimos 12 meses)
+  </h2>
+
+  <%= column_chart @monthly_summary_chart,
+        height: "300px",
+        stacked: false,
+        library: {
+          legend: { position: "top" },
+          scales: {
+            x: { type: "time", time: { unit: "month" } },
+            y: { beginAtZero: true }
+          }
+        } %>
+</div>

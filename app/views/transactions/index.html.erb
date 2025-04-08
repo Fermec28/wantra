@@ -1,0 +1,65 @@
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+  <!-- Contenido principal -->
+  <div class="lg:col-span-3 space-y-6">
+    
+    <!-- 🧭 Cards resumen -->
+    <%= render "transactions/dashboard/summary_cards" %>
+    
+    <!-- 📊 Presupuestos  -->
+    <%= render "transactions/dashboard/budget_overview" %>
+
+    <!-- 🧮 Comparación mensual -->
+    <%= render "transactions/dashboard/monthly_comparison_chart" %>
+
+    <!-- 📂 Top categorías  -->
+    <%= render "transactions/dashboard/top_categories_chart" %>
+
+    <!-- 🌀 Distribución por categoría  -->
+    <%= render "transactions/dashboard/category_distribution_chart" %>
+
+    <!-- 📈 Flujo acumulado  -->
+    <%= render "transactions/dashboard/accumulated_flow_chart" %>
+
+    <!-- 📋 Tabla de transacciones -->
+    <div class="bg-white rounded-2xl shadow overflow-hidden">
+      <table class="w-full text-sm text-gray-700">
+        <thead class="bg-gray-50 border-b">
+          <tr>
+            <th class="p-4 text-left">Fecha</th>
+            <th class="p-4 text-left">Descripción</th>
+            <th class="p-4 text-right">Monto</th>
+            <th class="p-4 text-left">Cuenta</th>
+            <th class="p-4 text-left">Etiquetas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @transactions.each do |t| %>
+            <tr class="border-b hover:bg-gray-50 transition">
+              <td class="p-4"><%= t.date.strftime("%d %b %Y") %></td>
+              <td class="p-4"><%= t.description %></td>
+              <td class="p-4 text-right font-semibold <%= ['expense', 'transfer_out'].include?(t.txn_kind) ? 'text-red-500' : 'text-green-600' %>">
+                <%= number_to_currency(t.amount) %>
+              </td>
+              <td class="p-4"><%= t.account.name %></td>
+              <td class="p-4">
+                <% t.tags.each do |tag| %>
+                  <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 text-xs rounded-full mr-1 mb-1">
+                    <%= tag.name %>
+                  </span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Sidebar sticky -->
+  <div class="lg:col-span-1">
+    <div class="sticky top-4">
+      <%= render "shared/account_sidebar" %>
+    </div>
+  </div>
+</div>

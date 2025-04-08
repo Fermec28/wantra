@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "modal" do %>
+  <div data-controller="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white w-full max-w-lg rounded-xl shadow-lg p-6 relative">
+      <h2 class="text-lg font-semibold mb-4">Nueva Transacción</h2>
+
+      <%= render partial: "form", locals: { transaction: @transaction, accounts: @accounts } %>
+
+      <%= link_to "✕", "#", data: { action: "click->modal#close" },
+          class: "absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl" %>
+    </div>
+  </div>
+<% end %>

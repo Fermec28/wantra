@@ -1,0 +1,57 @@
+<%= form_with url: transactions_path, method: :post, local: true, data: { controller: "transaction-form" } do |f| %>
+  
+  <!-- Tipo -->
+  <div class="mb-4">
+    <%= label_tag :txn_kind, "Tipo" %>
+    <%= select_tag "transaction[txn_kind]",
+        options_for_select([["Ingreso", "income"], ["Gasto", "expense"], ["Transferencia", "transfer"]]),
+        class: "border rounded w-full",
+        data: { action: "change->transaction-form#kindChanged" } %>
+  </div>
+  
+  <!-- Cuenta Origen -->
+  <div class="mb-4" data-transaction-form-target="accountFrom">
+    <%= label_tag :account_id, "Cuenta origen" %>
+    <%= select_tag "transaction[account_id]", options_from_collection_for_select(@accounts, :id, :name), class: "border rounded w-full" %>
+  </div>
+
+  <!-- Monto -->
+  <div class="mb-4" data-transaction-form-target="amountFrom">
+    <%= label_tag :amount, "Monto" %>
+    <%= number_field_tag "transaction[amount]", nil, step: 0.01, class: "border rounded w-full" %>
+  </div>
+
+  <!-- Cuenta Destino -->
+  <div class="mb-4 hidden" data-transaction-form-target="accountTo">
+    <%= label_tag :to_account_id, "Cuenta destino" %>
+    <%= select_tag "transaction[to_account_id]", options_from_collection_for_select(@accounts, :id, :name), class: "border rounded w-full" %>
+  </div>
+
+  <!-- Monto destino (sólo si monedas distintas) -->
+  <div class="mb-4 hidden" data-transaction-form-target="amountTo">
+    <%= label_tag :amount_to, "Monto destino" %>
+    <%= number_field_tag "transaction[amount_to]", nil, step: 0.01, class: "border rounded w-full" %>
+  </div>
+
+  <!-- Descripción -->
+  <div class="mb-4">
+    <%= label_tag :description, "Descripción" %>
+    <%= text_field_tag "transaction[description]", nil, class: "border rounded w-full" %>
+  </div>
+
+  <!-- Fecha -->
+  <div class="mb-4">
+    <%= label_tag :date, "Fecha" %>
+    <%= date_field_tag "transaction[date]", Date.today, class: "border rounded w-full" %>
+  </div>
+
+  <!-- Etiquetas -->
+  <div class="mb-4" data-transaction-form-target="tags">
+    <%= label_tag :tag_list, "Etiquetas (separadas por coma)" %>
+    <%= text_field_tag "transaction[tag_list]", "", placeholder: "comida, transporte", class: "border rounded w-full" %>
+  </div>
+
+  <div>
+    <%= submit_tag "Crear transacción", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+  </div>
+<% end %>
