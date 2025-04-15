@@ -6,6 +6,7 @@
   <% if @accumulated_chart_data.any? %>
     <%= line_chart @accumulated_chart_data,
           height: "300px",
+          colors: ["#ef4444", "#22c55e"],
           library: {
             legend: { position: "top" },
             scales: {

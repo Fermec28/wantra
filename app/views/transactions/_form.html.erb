@@ -12,7 +12,8 @@
   <!-- Cuenta Origen -->
   <div class="mb-4" data-transaction-form-target="accountFrom">
     <%= label_tag :account_id, "Cuenta origen" %>
-    <%= select_tag "transaction[account_id]", options_from_collection_for_select(@accounts, :id, :name), class: "border rounded w-full" %>
+    <%= select_tag "transaction[account_id]", options_from_collection_for_select(@accounts, :id, :label_for_select), class: "border rounded w-full", data: { action: "change->transaction-form#update" } %>
+    <div id="account-summary" class="mt-2 text-sm text-gray-600 bg-gray-100 p-2 rounded hidden"></div>
   </div>
 
   <!-- Monto -->
@@ -24,7 +25,8 @@
   <!-- Cuenta Destino -->
   <div class="mb-4 hidden" data-transaction-form-target="accountTo">
     <%= label_tag :to_account_id, "Cuenta destino" %>
-    <%= select_tag "transaction[to_account_id]", options_from_collection_for_select(@accounts, :id, :name), class: "border rounded w-full" %>
+    <%= select_tag "transaction[to_account_id]", options_from_collection_for_select(@accounts, :id, :label_for_select), class: "border rounded w-full", data: { action: "change->transaction-form#updateToAccount" } %>
+    <div id="to-account-summary" class="mt-2 text-sm text-gray-600 bg-gray-100 p-2 rounded hidden"></div>
   </div>
 
   <!-- Monto destino (sólo si monedas distintas) -->

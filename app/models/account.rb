@@ -11,4 +11,8 @@ class Account < ApplicationRecord
       errors.add(:currency, "No se puede cambiar una vez creada la cuenta")
     end
   end
+
+  def label_for_select
+    "#{name} – #{balance_currency} #{balance.format(symbol: true, no_cents_if_whole: true)}"
+  end
 end

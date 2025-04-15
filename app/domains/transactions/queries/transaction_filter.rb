@@ -16,7 +16,7 @@ module Transactions
         from = parse_date(@params[:from]) || 1.month.ago.to_date
         to   = parse_date(@params[:to])   || Date.today
 
-        filtered.where(date: from..to)
+        filtered.where(date: from..to).order(date: :desc, id: :desc)
       end
 
       private

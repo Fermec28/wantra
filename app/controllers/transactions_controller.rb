@@ -43,50 +43,67 @@ class TransactionsController < ApplicationController
         .count
     }
 
-    @top_expense_tags_by_currency = current_user.transactions
+    @top_expense_tags_by_currency = @transactions
       .includes(:account, :tags)
       .where(txn_kind: "expense", date: @period_range)
-      .flat_map { |t| t.tags.map { |tag| [ t.account.balance_currency, tag.name, t.amount ] } }
-      .group_by { |currency, tag, _| [ currency, tag ] }
-      .transform_values { |entries| entries.sum { |_, _, amount| amount } }
-      .group_by { |(currency, _), _| currency }
-      .transform_values do |tag_data|
-        tag_data
-          .sort_by { |(_, _), amount| -amount }
+      .flat_map do |t|
+        t.tags.map do |tag|
+          currency = t.account.balance_currency
+          name     = tag.name.presence || "Sin etiqueta"
+          amount   = t.amount.to_f
+          [ currency, name, amount ]
+        end
+      end
+      .group_by { |currency, _, _| currency }
+      .transform_values do |entries|
+        entries
+          .group_by { |_, tag, _| tag }
+          .transform_values { |tag_entries| tag_entries.sum { |_, _, amount| amount } }
+          .sort_by { |_, amount| -amount }
           .to_h
       end
 
-    @tag_distribution_by_currency = current_user.transactions
+    @tag_distribution_by_currency = @transactions
       .includes(:account, :tags)
       .where(txn_kind: "expense", date: @period_range)
-      .flat_map { |t| t.tags.map { |tag| [ t.account.balance_currency, tag.name, t.amount ] } }
-      .group_by { |currency, tag, _| [ currency, tag ] }
-      .transform_values { |entries| entries.sum { |_, _, amount| amount } }
-      .group_by { |(currency, _), _| currency }
-      .transform_values do |tag_data|
-        tag_data
-          .sort_by { |(_, _), amount| -amount }
-          .to_h
+      .flat_map do |t|
+        t.tags.map do |tag|
+          currency = t.account.balance_currency
+          name     = tag.name.presence || "Sin etiqueta"
+          amount   = t.amount.to_f
+          [ currency, name, amount ]
+        end
       end
-
+      .group_by { |currency, _, _| currency }
+      .transform_values do |entries|
+        entries.group_by { |_, tag, _| tag }
+               .transform_values { |tag_entries| tag_entries.sum { |_, _, amount| amount } }
+               .sort_by { |_, amount| -amount }
+               .to_h
+      end
     # Comparación mensual de ingresos/gastos
-    @monthly_summary_chart = current_user.transactions
+    @monthly_summary_chart = @transactions
       .includes(:account)
       .where(date: 12.months.ago.beginning_of_month..Date.today.end_of_month)
       .where(txn_kind: [ "income", "expense" ])
-      .group_by { |t| [ t.date.beginning_of_month, t.account.balance_currency, t.txn_kind ] }
+      .group_by { |t| [ t.date.strftime("%b %Y"), t.account.balance_currency, t.txn_kind ] }
       .each_with_object(Hash.new { |h, k| h[k] = {} }) do |((month, currency, kind), txns), hash|
-        hash["#{currency} - #{kind.capitalize}"][month] = txns.sum(&:amount)
+        label = "#{currency} - #{kind == 'income' ? 'Ingresos' : 'Gastos'}"
+        hash[label][month] = txns.sum(&:amount).to_f
       end
 
-    @accumulated_chart_data = current_user.transactions
+    # Transform to format that works for column_chart
+    @monthly_summary_chart = @monthly_summary_chart.map do |name, data|
+      { name: name, data: data }
+    end
+    @accumulated_chart_data = @transactions
       .includes(:account)
       .where(date: @period_range)
       .group_by { |t| [ t.account.balance_currency, t.txn_kind, t.date ] }
       .group_by { |(currency, kind, _), _| [ currency, kind ] }
       .map do |(currency, kind), entries|
         sorted = entries
-          .map { |(_, _, date), txns| [ date, txns.sum(&:amount) ] }
+          .map { |(_, _, date), txns| [ date, txns.sum(&:amount).to_f ] }
           .sort_by(&:first)
 
         accumulated = 0
