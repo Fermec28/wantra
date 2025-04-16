@@ -160,7 +160,7 @@ class TransactionsController < ApplicationController
         amount: params[:transaction][:amount],
         description: params[:transaction][:description],
         date: params[:transaction][:date],
-        tag_names: params[:transaction][:tag_list].to_s.split(",").map(&:strip)
+        tag_names: params[:transaction][:tag_list].map(&:strip)
       )
 
       service = Transactions::Services::TransactionCreator.new(command)

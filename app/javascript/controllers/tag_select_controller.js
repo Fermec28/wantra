@@ -6,7 +6,7 @@ export default class extends Controller {
     new TomSelect(this.element, {
       plugins: ['remove_button'],
       maxItems: null,
-      create: false,
+      create: true,
       persist: false,
       closeAfterSelect: true,
       render: {

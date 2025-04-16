@@ -49,8 +49,12 @@
 
   <!-- Etiquetas -->
   <div class="mb-4" data-transaction-form-target="tags">
-    <%= label_tag :tag_list, "Etiquetas (separadas por coma)" %>
-    <%= text_field_tag "transaction[tag_list]", "", placeholder: "comida, transporte", class: "border rounded w-full" %>
+    <%= label_tag :tag_list, "Etiquetas" %>
+    <%= select_tag "transaction[tag_list][]",
+          options_from_collection_for_select(current_user.tags, :name, :name),
+          multiple: true,
+          class: "border rounded w-full bg-white text-sm",
+          data: { controller: "tag-select" } %>
   </div>
 
   <div>
