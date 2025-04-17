@@ -4,6 +4,6 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import "chartkick/chart.js"
 import "tom-select/dist/css/tom-select.default.css"
-
+import "shepherd.js/dist/css/shepherd.css"
 
 Rails.start()

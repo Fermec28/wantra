@@ -1,0 +1,46 @@
+<% return unless show_onboarding_checklist? %>
+
+<div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 onboarding-checklist">
+  <h2 class="text-sm font-semibold text-blue-800 mb-3">
+    👋 ¡Bienvenido/a! Vamos a dejar todo listo:
+  </h2>
+
+  <ul class="space-y-2 text-sm text-blue-900">
+    <li class="flex items-center gap-2">
+      <%= current_user.accounts.any? ? "✅" : "🔹" %>
+      <% if current_user.accounts.any? %>
+        Ya creaste al menos una cuenta
+      <% else %>
+
+        <%= link_to "Crear una cuenta", new_account_path, data: { turbo_frame: "modal" }, class: "underline hover:text-blue-600" %>
+      <% end %>
+    </li>
+
+    <li class="flex items-center gap-2">
+      <%= current_user.transactions.any? ? "✅" : "🔹" %>
+      <% if current_user.transactions.any? %>
+        Ya registraste tu primera transacción
+      <% else %>
+        <%= link_to "Registrar una transacción", new_transaction_path, data: { turbo_frame: "modal" }, class: "underline hover:text-blue-600" %>
+      <% end %>
+    </li>
+
+    <li class="flex items-center gap-2">
+      <%= current_user.tags.any? ? "✅" : "🔹" %>
+      <% if current_user.tags.any? %>
+        Ya creaste etiquetas para tus gastos
+      <% else %>
+        <span class="text-blue-700">Agrega etiquetas cuando crees tus transacciones</span>
+      <% end %>
+    </li>
+
+    <li class="flex items-center gap-2">
+      <%= current_user.budgets.any? ? "✅" : "🔹" %>
+      <% if current_user.budgets.any? %>
+        Ya definiste un presupuesto
+      <% else %>
+        <%= link_to "Crear un presupuesto", new_budget_path, data: { turbo_frame: "modal" }, class: "underline hover:text-blue-600" %>
+      <% end %>
+    </li>
+  </ul>
+</div>

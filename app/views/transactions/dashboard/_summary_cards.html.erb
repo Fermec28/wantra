@@ -1,7 +1,22 @@
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="flex items-center justify-between mb-4">
+  <h2 class="text-lg font-semibold text-gray-700">Resumen</h2>
+  <button
+    title="Ver tour de la app"
+    data-action="click->tour#start"
+    class="text-sm text-blue-600 hover:underline flex items-center gap-1"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-4.25a.75.75 0 01-1.5 0v-4a.75.75 0 011.5 0v4zm0-6.5a.75.75 0 01-1.5 0v-.01a.75.75 0 011.5 0V7.25z" clip-rule="evenodd" />
+    </svg>
+    Ver tour
+  </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 summary-cards">
   <% @accounts_by_currency.each do |currency, accounts| %>
     <div class="bg-white rounded-2xl shadow p-6">
-      <p class="text-sm text-gray-500">Saldo total (<%= currency %>)</p>
+      <p class="text-sm text-gray-500">
+        Saldo total disponible en <strong><%= currency %></strong>
+      </p>
       <p class="text-lg font-semibold text-gray-800 mt-1">
         <%= number_to_currency(accounts.sum(&:balance), unit: "#{currency} ") %>
       </p>
@@ -10,7 +25,9 @@
 
   <% @summary[:expenses].each do |currency, amount| %>
     <div class="bg-white rounded-2xl shadow p-6">
-      <p class="text-sm text-gray-500">Gasto en <%= currency %></p>
+      <p class="text-sm text-gray-500">
+        Total gastado en <strong><%= currency %></strong> durante este período
+      </p>
       <p class="text-lg font-semibold text-red-500 mt-1">
         <%= number_to_currency(amount, unit: "#{currency} ") %>
       </p>
@@ -19,7 +36,9 @@
 
   <% @summary[:incomes].each do |currency, amount| %>
     <div class="bg-white rounded-2xl shadow p-6">
-      <p class="text-sm text-gray-500">Ingreso en <%= currency %></p>
+      <p class="text-sm text-gray-500">
+        Total recibido en <strong><%= currency %></strong> durante este período
+      </p>
       <p class="text-lg font-semibold text-green-600 mt-1">
         <%= number_to_currency(amount, unit: "#{currency} ") %>
       </p>
@@ -27,7 +46,7 @@
   <% end %>
 
   <div class="bg-white rounded-2xl shadow p-6">
-    <p class="text-sm text-gray-500">Transacciones en el período</p>
+    <p class="text-sm text-gray-500">Cantidad de transacciones registradas</p>
     <p class="text-2xl font-semibold text-gray-800 mt-1">
       <%= @summary[:count] %>
     </p>

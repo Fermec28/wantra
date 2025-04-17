@@ -1,27 +1,30 @@
-<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6" data-controller="tour">
   <!-- Contenido principal -->
   <div class="lg:col-span-3 space-y-6">
     
     <!-- 🧭 Cards resumen -->
-    <%= render "transactions/dashboard/summary_cards" %>
+    <%= render "transactions/dashboard/summary_cards"%>
+
+    <!-- 🏁 Onboarding checklist -->
+    <%= render "transactions/dashboard/onboarding_checklist"%>
     
     <!-- 📊 Presupuestos  -->
-    <%= render "transactions/dashboard/budget_overview" %>
+    <%= render "transactions/dashboard/budget_overview"%>
 
     <!-- 🧮 Comparación mensual -->
     <%= render "transactions/dashboard/monthly_comparison_chart" %>
 
     <!-- 📂 Top categorías  -->
-    <%= render "transactions/dashboard/top_categories_chart" %>
+    <%= render "transactions/dashboard/top_categories_chart"%>
 
     <!-- 🌀 Distribución por categoría  -->
-    <%= render "transactions/dashboard/category_distribution_chart" %>
+    <%= render "transactions/dashboard/category_distribution_chart"%>
 
     <!-- 📈 Flujo acumulado  -->
-    <%= render "transactions/dashboard/accumulated_flow_chart" %>
+    <%= render "transactions/dashboard/accumulated_flow_chart"%>
 
     <!-- 📋 Tabla de transacciones -->
-    <div class="bg-white rounded-2xl shadow overflow-hidden">
+    <div class="bg-white rounded-2xl shadow overflow-hidden transactions-table">
       <table class="w-full text-sm text-gray-700">
         <thead class="bg-gray-50 border-b">
           <tr>

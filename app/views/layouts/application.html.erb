@@ -31,8 +31,11 @@
         </div>
 
         <% if user_signed_in? %>
-          <nav class="space-x-4">
-            <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, data: { confirm: "¿Seguro que querés cerrar sesión?" } %>
+          <nav class="space-x-4 flex items-center">
+            <%= link_to "Cerrar sesión", destroy_user_session_path,
+                method: :delete,
+                data: { confirm: "¿Seguro que querés cerrar sesión?" },
+                class: "text-gray-700 hover:text-blue-600" %>
           </nav>
         <% end %>
       </div>
@@ -54,22 +57,31 @@
     </main>
 
     <div class="fixed bottom-6 right-6 z-50">
-      <div data-controller="fab" class="relative">
-        <!-- Botón principal -->
-        <button
-          data-action="click->fab#toggle"
-          class="w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center text-3xl">
-          +
-        </button>
+  <div data-controller="fab" class="relative">
 
-        <!-- Menú desplegable -->
-        <div
+    <!-- Botón principal con clase para el tour -->
+    <button
+      data-action="click->fab#toggle"
+      class="floating-action-button w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center text-3xl">
+      +
+    </button>
+
+    <!-- Menú desplegable con data-actions para el tour -->
+    <div
           data-fab-target="menu"
           class="absolute bottom-16 right-0 bg-white rounded-xl shadow-lg p-3 space-y-2 hidden transition-all">
-          <%= link_to "Nueva transacción", new_transaction_path, data: { turbo_frame: "modal" }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded" %>
-          <%= link_to "Nueva cuenta", new_account_path, data: { turbo_frame: "modal" }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded" %>
-          <%= link_to "Nuevo presupuesto", new_budget_path, data: { turbo_frame: "modal" }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded" %>
+          <%= link_to "Nueva cuenta", new_account_path,
+              data: { turbo_frame: "modal", action: "open-new-account-modal" },
+              class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded" %>
 
+          <%= link_to "Nueva transacción", new_transaction_path,
+              data: { turbo_frame: "modal", action: "open-new-transaction-modal" },
+              class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded" %>
+
+          
+          <%= link_to "Nuevo presupuesto", new_budget_path,
+              data: { turbo_frame: "modal", action: "open-new-budget-modal" },
+              class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded" %>
         </div>
       </div>
     </div>
