@@ -1,0 +1,7 @@
+es:
+  layout:
+    logout: "Cerrar sesión"
+    logout_confirm: "¿Seguro que querés cerrar sesión?"
+    new_account: "Nueva cuenta"
+    new_transaction: "Nueva transacción"
+    new_budget: "Nuevo presupuesto"

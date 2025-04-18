@@ -1,5 +1,5 @@
 <div class="bg-white rounded-2xl shadow p-6 budget-overview">
-  <h2 class="text-sm font-semibold text-gray-600 mb-4">Presupuestos del mes</h2>
+  <h2 class="text-sm font-semibold text-gray-600 mb-4"><%= t(".title") %></h2>
 
   <% if @budgets_progress.any? %>
     <% @budgets_progress.each do |b| %>
@@ -21,6 +21,6 @@
       </div>
     <% end %>
   <% else %>
-    <p class="text-sm text-gray-500">No hay presupuestos configurados para este mes.</p>
+    <p class="text-sm text-gray-500"><%= t(".no_budgets") %></p>
   <% end %>
 </div>

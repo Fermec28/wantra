@@ -1,0 +1,7 @@
+en:
+  accounts:
+    form:
+      title: "New Account"
+      name: "Name"
+      balance_currency: "Currency"
+      submit: "Create Account"

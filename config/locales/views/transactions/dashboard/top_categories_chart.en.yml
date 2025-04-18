@@ -1,0 +1,8 @@
+en:
+  transactions:
+    dashboard:
+      top_categories_chart:
+        title: "Top spending categories (%{period})"
+        no_data: "Not enough data to display this chart."
+        currency_header: "In %{currency}"
+        no_currency_data: "No data for %{currency}."

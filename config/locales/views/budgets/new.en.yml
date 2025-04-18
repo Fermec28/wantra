@@ -1,0 +1,11 @@
+en:
+  budgets:
+    new:
+      title: "New Budget"
+      tag_name: "Category"
+      month: "Month"
+      amount: "Amount"
+      amount_currency: "Currency"
+      repeat_monthly: "Repeat monthly"
+      submit: "Save budget"
+      prompt: "Select"

@@ -1,0 +1,6 @@
+es:
+  transactions:
+    dashboard:
+      budget_overview:
+        title: "Presupuestos del mes"
+        no_budgets: "No hay presupuestos configurados para este mes."

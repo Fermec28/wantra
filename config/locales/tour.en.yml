@@ -1,0 +1,45 @@
+en:
+  tour:
+    summary_cards:
+      title: "Your financial summary 💰"
+      text: "Here you can see your total balance per currency, how much you've spent or received in the current period, and the number of transactions recorded. It's your quick financial overview."
+    onboarding_checklist:
+      title: "Getting started checklist 📝"
+      text: "We guide you step-by-step to configure your account and take full advantage of all features. Perfect if you're just getting started."
+    sidebar_accounts:
+      title: "Your accounts 🏦"
+      text: "This sidebar shows your accounts and their updated balances. Always visible to make tracking easy."
+    budgets:
+      title: "Budgets"
+      text: "Track the progress of your monthly budgets per category."
+    monthly_comparison:
+      title: "Monthly comparison 📊"
+      text: "Easily compare your income and expenses each month. Helps you see if you're spending more than you earn."
+    top_categories:
+      title: "Top spending categories 🏷️"
+      text: "See which categories you spend the most on. Great for identifying habits or overspending."
+    category_distribution:
+      title: "Category distribution 🎯"
+      text: "Visualize where you're spending the most. Compare by category and currency."
+    accumulated_flow:
+      title: "Accumulated flow 💹"
+      text: "Shows how your income and expenses evolve over time. Helpful for spotting trends."
+    transactions_table:
+      title: "Transaction table"
+      text: "This table displays all your transactions, filtered by period and other options."
+    action_button:
+      title: "Quick actions ➕"
+      text: "Click here to quickly add a new account, transaction, or budget. All essentials in one place."
+      button: "Open menu"
+    create_account:
+      title: "Create your first account 💼"
+      text: "Start by registering an account, like your bank or digital wallet."
+    create_transaction:
+      title: "Add a transaction 💸"
+      text: "Next, you can register your income or expenses from this button."
+    create_budget:
+      title: "Set a budget 📅"
+      text: "Finally, define how much you want to spend per category each month."
+      button: "Finish"
+    buttons:
+      next: "Next"

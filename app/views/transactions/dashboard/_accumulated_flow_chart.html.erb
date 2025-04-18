@@ -1,6 +1,6 @@
 <div class="bg-white rounded-2xl shadow p-6 accumulated-flow-chart">
   <h2 class="text-sm font-semibold text-gray-600 mb-4">
-    Flujo acumulado de ingresos y gastos (<%= @period.titleize %>)
+    <%= t(".title", period: @period.titleize) %>
   </h2>
 
   <% if @accumulated_chart_data.any? %>
@@ -23,6 +23,6 @@
             }
           } %>
   <% else %>
-    <p class="text-sm text-gray-500">No hay transacciones registradas en este período.</p>
+    <p class="text-sm text-gray-500"><%= t(".no_data") %></p>
   <% end %>
 </div>

@@ -2,44 +2,43 @@
 
 <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 onboarding-checklist">
   <h2 class="text-sm font-semibold text-blue-800 mb-3">
-    👋 ¡Bienvenido/a! Vamos a dejar todo listo:
+    <%= t(".title") %>
   </h2>
 
   <ul class="space-y-2 text-sm text-blue-900">
     <li class="flex items-center gap-2">
       <%= current_user.accounts.any? ? "✅" : "🔹" %>
       <% if current_user.accounts.any? %>
-        Ya creaste al menos una cuenta
+        <%= t(".account_created") %>
       <% else %>
-
-        <%= link_to "Crear una cuenta", new_account_path, data: { turbo_frame: "modal" }, class: "underline hover:text-blue-600" %>
+        <%= link_to t(".create_account"), new_account_path, data: { turbo_frame: "modal" }, class: "underline hover:text-blue-600" %>
       <% end %>
     </li>
 
     <li class="flex items-center gap-2">
       <%= current_user.transactions.any? ? "✅" : "🔹" %>
       <% if current_user.transactions.any? %>
-        Ya registraste tu primera transacción
+        <%= t(".transaction_created") %>
       <% else %>
-        <%= link_to "Registrar una transacción", new_transaction_path, data: { turbo_frame: "modal" }, class: "underline hover:text-blue-600" %>
+        <%= link_to t(".create_transaction"), new_transaction_path, data: { turbo_frame: "modal" }, class: "underline hover:text-blue-600" %>
       <% end %>
     </li>
 
     <li class="flex items-center gap-2">
       <%= current_user.tags.any? ? "✅" : "🔹" %>
       <% if current_user.tags.any? %>
-        Ya creaste etiquetas para tus gastos
+        <%= t(".tags_created") %>
       <% else %>
-        <span class="text-blue-700">Agrega etiquetas cuando crees tus transacciones</span>
+        <span class="text-blue-700"><%= t(".add_tags_hint") %></span>
       <% end %>
     </li>
 
     <li class="flex items-center gap-2">
       <%= current_user.budgets.any? ? "✅" : "🔹" %>
       <% if current_user.budgets.any? %>
-        Ya definiste un presupuesto
+        <%= t(".budget_created") %>
       <% else %>
-        <%= link_to "Crear un presupuesto", new_budget_path, data: { turbo_frame: "modal" }, class: "underline hover:text-blue-600" %>
+        <%= link_to t(".create_budget"), new_budget_path, data: { turbo_frame: "modal" }, class: "underline hover:text-blue-600" %>
       <% end %>
     </li>
   </ul>

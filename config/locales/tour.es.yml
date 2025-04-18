@@ -1,0 +1,45 @@
+es:
+  tour:
+    summary_cards:
+      title: "Resumen de tu dinero 💰"
+      text: "Aquí puedes ver tu saldo total por moneda, cuánto has gastado o recibido en el período actual y el número de transacciones que llevas registradas. Es tu vista rápida del estado financiero."
+    onboarding_checklist:
+      title: "Checklist de inicio 📝"
+      text: "Aquí te guiamos paso a paso para configurar tu cuenta y aprovechar todas las funcionalidades. Ideal si estás empezando."
+    sidebar_accounts:
+      title: "Tus cuentas 🏦"
+      text: "En esta barra lateral puedes ver tus cuentas con su saldo actualizado. Siempre visible para facilitar el seguimiento."
+    budgets:
+      title: "Presupuestos"
+      text: "Consulta el progreso de tus presupuestos mensuales por categoría."
+    monthly_comparison:
+      title: "Comparación mensual 📊"
+      text: "Compara fácilmente tus ingresos y gastos de cada mes. Te ayuda a ver si estás gastando más de lo que ganas."
+    top_categories:
+      title: "Tus gastos más importantes 🏷️"
+      text: "Aquí ves cuáles son las categorías donde más gastas. Ideal para detectar hábitos o excesos."
+    category_distribution:
+      title: "Distribución por categoría 🎯"
+      text: "Visualiza en qué estás gastando más. Puedes comparar por tipo de gasto y moneda."
+    accumulated_flow:
+      title: "Flujo acumulado 💹"
+      text: "Te muestra cómo evolucionan tus ingresos y gastos a lo largo del tiempo. Sirve para ver tendencias."
+    transactions_table:
+      title: "Transacciones registradas"
+      text: "Esta tabla muestra todas tus transacciones filtradas por período y otras opciones."
+    action_button:
+      title: "Acciones rápidas ➕"
+      text: "Haz clic aquí para agregar una cuenta, una transacción o un presupuesto. Todo lo esencial está a un clic."
+      button: "Abrir menú"
+    create_account:
+      title: "Crear tu primera cuenta 💼"
+      text: "Empieza por registrar una cuenta, como tu banco o billetera digital."
+    create_transaction:
+      title: "Registrar transacción 💸"
+      text: "Luego podrás añadir tus ingresos y gastos desde este botón."
+    create_budget:
+      title: "Asignar presupuesto 📅"
+      text: "Finalmente, puedes definir cuánto querés gastar por categoría cada mes."
+      button: "Finalizar"
+    buttons:
+      next: "Siguiente"

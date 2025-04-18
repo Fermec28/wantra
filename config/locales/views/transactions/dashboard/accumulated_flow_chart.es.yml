@@ -1,0 +1,6 @@
+es:
+  transactions:
+    dashboard:
+      accumulated_flow_chart:
+        title: "Flujo acumulado de ingresos y gastos (%{period})"
+        no_data: "No hay transacciones registradas en este período."

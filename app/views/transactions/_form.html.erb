@@ -1,55 +1,59 @@
 <%= form_with url: transactions_path, method: :post, local: true, data: { controller: "transaction-form" } do |f| %>
-  
+
   <!-- Tipo -->
   <div class="mb-4">
-    <%= label_tag :txn_kind, "Tipo" %>
+    <%= label_tag :txn_kind, t(".kind") %>
     <%= select_tag "transaction[txn_kind]",
-        options_for_select([["Ingreso", "income"], ["Gasto", "expense"], ["Transferencia", "transfer"]]),
+        options_for_select([
+          [t(".kinds.income"), "income"],
+          [t(".kinds.expense"), "expense"],
+          [t(".kinds.transfer"), "transfer"]
+        ]),
         class: "border rounded w-full",
         data: { action: "change->transaction-form#kindChanged" } %>
   </div>
-  
+
   <!-- Cuenta Origen -->
   <div class="mb-4" data-transaction-form-target="accountFrom">
-    <%= label_tag :account_id, "Cuenta origen" %>
+    <%= label_tag :account_id, t(".account_from") %>
     <%= select_tag "transaction[account_id]", options_from_collection_for_select(@accounts, :id, :label_for_select), class: "border rounded w-full", data: { action: "change->transaction-form#update" } %>
     <div id="account-summary" class="mt-2 text-sm text-gray-600 bg-gray-100 p-2 rounded hidden"></div>
   </div>
 
   <!-- Monto -->
   <div class="mb-4" data-transaction-form-target="amountFrom">
-    <%= label_tag :amount, "Monto" %>
+    <%= label_tag :amount, t(".amount_from") %>
     <%= number_field_tag "transaction[amount]", nil, step: 0.01, class: "border rounded w-full" %>
   </div>
 
   <!-- Cuenta Destino -->
   <div class="mb-4 hidden" data-transaction-form-target="accountTo">
-    <%= label_tag :to_account_id, "Cuenta destino" %>
+    <%= label_tag :to_account_id, t(".account_to") %>
     <%= select_tag "transaction[to_account_id]", options_from_collection_for_select(@accounts, :id, :label_for_select), class: "border rounded w-full", data: { action: "change->transaction-form#updateToAccount" } %>
     <div id="to-account-summary" class="mt-2 text-sm text-gray-600 bg-gray-100 p-2 rounded hidden"></div>
   </div>
 
-  <!-- Monto destino (sólo si monedas distintas) -->
+  <!-- Monto destino -->
   <div class="mb-4 hidden" data-transaction-form-target="amountTo">
-    <%= label_tag :amount_to, "Monto destino" %>
+    <%= label_tag :amount_to, t(".amount_to") %>
     <%= number_field_tag "transaction[amount_to]", nil, step: 0.01, class: "border rounded w-full" %>
   </div>
 
   <!-- Descripción -->
   <div class="mb-4">
-    <%= label_tag :description, "Descripción" %>
+    <%= label_tag :description, t(".description") %>
     <%= text_field_tag "transaction[description]", nil, class: "border rounded w-full" %>
   </div>
 
   <!-- Fecha -->
   <div class="mb-4">
-    <%= label_tag :date, "Fecha" %>
+    <%= label_tag :date, t(".date") %>
     <%= date_field_tag "transaction[date]", Date.today, class: "border rounded w-full" %>
   </div>
 
   <!-- Etiquetas -->
   <div class="mb-4" data-transaction-form-target="tags">
-    <%= label_tag :tag_list, "Etiquetas" %>
+    <%= label_tag :tag_list, t(".tags") %>
     <%= select_tag "transaction[tag_list][]",
           options_from_collection_for_select(current_user.tags, :name, :name),
           multiple: true,
@@ -57,7 +61,9 @@
           data: { controller: "tag-select" } %>
   </div>
 
+  <!-- Botón -->
   <div>
-    <%= submit_tag "Crear transacción", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+    <%= submit_tag t(".submit"), class: "bg-blue-500 text-white px-4 py-2 rounded" %>
   </div>
+
 <% end %>

@@ -1,0 +1,10 @@
+en:
+  transactions:
+    dashboard:
+      summary_cards:
+        title: "Summary"
+        tour_button: "Show tour"
+        total_balance: "Total available balance in %{currency}"
+        total_expense: "Total spent in %{currency} during this period"
+        total_income: "Total received in %{currency} during this period"
+        transaction_count: "Number of recorded transactions"

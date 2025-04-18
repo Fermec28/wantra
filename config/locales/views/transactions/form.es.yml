@@ -1,0 +1,16 @@
+es:
+  transactions:
+    form:
+      kind: "Tipo"
+      kinds:
+        income: "Ingreso"
+        expense: "Gasto"
+        transfer: "Transferencia"
+      account_from: "Cuenta origen"
+      amount_from: "Monto"
+      account_to: "Cuenta destino"
+      amount_to: "Monto destino"
+      description: "Descripción"
+      date: "Fecha"
+      tags: "Etiquetas"
+      submit: "Crear transacción"

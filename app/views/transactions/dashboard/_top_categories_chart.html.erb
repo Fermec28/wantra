@@ -1,19 +1,19 @@
 <div class="bg-white rounded-2xl shadow p-6 top-categories-chart">
   <h2 class="text-sm font-semibold text-gray-600 mb-4">
-    Top categorías por gasto (<%= @period.titleize %>)
+    <%= t(".title", period: @period.titleize) %>
   </h2>
 
   <% if @top_expense_tags_by_currency.blank? %>
-    <p class="text-sm text-gray-500">No hay suficientes datos para mostrar esta gráfica.</p>
+    <p class="text-sm text-gray-500"><%= t(".no_data") %></p>
   <% else %>
     <% @top_expense_tags_by_currency.each do |currency, tag_data| %>
       <div class="mb-6">
         <h3 class="text-sm font-medium text-gray-600 mb-2">
-          En <%= currency %>
+          <%= t(".currency_header", currency: currency) %>
         </h3>
 
         <% if tag_data.blank? %>
-          <p class="text-sm text-gray-400">Sin datos para <%= currency %>.</p>
+          <p class="text-sm text-gray-400"><%= t(".no_currency_data", currency: currency) %></p>
         <% else %>
           <%= bar_chart tag_data,
                 height: "250px",
@@ -30,5 +30,5 @@
         <% end %>
       </div>
     <% end %>
-   <% end %>
+  <% end %>
 </div>

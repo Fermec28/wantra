@@ -1,0 +1,6 @@
+en:
+  transactions:
+    dashboard:
+      accumulated_flow_chart:
+        title: "Accumulated flow of income and expenses (%{period})"
+        no_data: "No transactions recorded in this period."

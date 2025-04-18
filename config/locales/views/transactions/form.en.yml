@@ -1,0 +1,16 @@
+en:
+  transactions:
+    form:
+      kind: "Type"
+      kinds:
+        income: "Income"
+        expense: "Expense"
+        transfer: "Transfer"
+      account_from: "From account"
+      amount_from: "Amount"
+      account_to: "To account"
+      amount_to: "Amount to"
+      description: "Description"
+      date: "Date"
+      tags: "Tags"
+      submit: "Create transaction"

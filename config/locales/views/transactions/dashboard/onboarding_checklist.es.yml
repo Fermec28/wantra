@@ -1,0 +1,13 @@
+es:
+  transactions:
+    dashboard:
+      onboarding_checklist:
+        title: "👋 ¡Bienvenido/a! Vamos a dejar todo listo:"
+        account_created: "Ya creaste al menos una cuenta"
+        create_account: "Crear una cuenta"
+        transaction_created: "Ya registraste tu primera transacción"
+        create_transaction: "Registrar una transacción"
+        tags_created: "Ya creaste etiquetas para tus gastos"
+        add_tags_hint: "Agrega etiquetas cuando crees tus transacciones"
+        budget_created: "Ya definiste un presupuesto"
+        create_budget: "Crear un presupuesto"

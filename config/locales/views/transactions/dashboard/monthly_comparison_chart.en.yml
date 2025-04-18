@@ -1,0 +1,6 @@
+en:
+  transactions:
+    dashboard:
+      monthly_comparison_chart:
+        title: "Monthly comparison of income and expenses in the selected period"
+        no_data: "There is not enough data yet to display this chart."

@@ -1,0 +1,11 @@
+es:
+  budgets:
+    new:
+      title: "Nuevo presupuesto"
+      tag_name: "Categoría"
+      month: "Mes"
+      amount: "Monto"
+      amount_currency: "Moneda"
+      repeat_monthly: "Repetir cada mes"
+      submit: "Guardar presupuesto"
+      prompt: "Seleccionar"

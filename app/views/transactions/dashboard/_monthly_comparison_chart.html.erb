@@ -1,18 +1,18 @@
 <div class="bg-white rounded-2xl shadow p-6 monthly-comparison-chart">
   <h2 class="text-sm font-semibold text-gray-600 mb-4">
-    Comparación mensual de ingresos y gastos en el periodo seleccionado
+    <%= t(".title") %>
   </h2>
 
- <% if @monthly_summary_chart.any? %>
-   <%= column_chart @monthly_summary_chart, height: "300px", 
-   colors: ["#ef4444", "#22c55e"],
-   library: {
-      legend: { position: "top" },
-      scales: {
-        y: { beginAtZero: true }
-      }
-    } %>
+  <% if @monthly_summary_chart.any? %>
+    <%= column_chart @monthly_summary_chart, height: "300px",
+        colors: ["#ef4444", "#22c55e"],
+        library: {
+          legend: { position: "top" },
+          scales: {
+            y: { beginAtZero: true }
+          }
+        } %>
   <% else %>
-    <p class="text-sm text-gray-500">Aún no hay datos suficientes para mostrar esta gráfica.</p>
+    <p class="text-sm text-gray-500"><%= t(".no_data") %></p>
   <% end %>
 </div>

@@ -1,0 +1,7 @@
+en:
+  transactions:
+    dashboard:
+      category_distribution_chart:
+        title: "Spending distribution by category"
+        currency_title: "Distribution in %{currency}"
+        no_data: "No expenses recorded for this period."

@@ -1,13 +1,13 @@
 <div class="bg-white rounded-2xl shadow p-6 category-distribution-chart">
   <h2 class="text-sm font-semibold text-gray-600 mb-4">
-    Distribución de gastos por categoría
+    <%= t(".title") %>
   </h2>
 
   <% if @tag_distribution_by_currency.any? %>
     <% @tag_distribution_by_currency.each do |currency, data| %>
       <div class="mb-6">
         <h3 class="text-sm font-medium text-gray-600 mb-2">
-          <%= currency %>
+          <%= t(".currency_title", currency: currency) %>
         </h3>
 
         <%= pie_chart data,
@@ -24,6 +24,6 @@
       </div>
     <% end %>
   <% else %>
-    <p class="text-sm text-gray-500">No hay gastos registrados para este período.</p>
+    <p class="text-sm text-gray-500"><%= t(".no_data") %></p>
   <% end %>
 </div>

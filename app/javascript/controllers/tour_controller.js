@@ -3,6 +3,10 @@ import { Controller } from "@hotwired/stimulus"
 import Shepherd from "shepherd.js"
 import "shepherd.js/dist/css/shepherd.css"
 
+
+const t = (key) => {
+  return key.split('.').reduce((obj, k) => obj?.[k], window.I18n?.tour) || key;
+};
 export default class extends Controller {
   connect() {
     if (localStorage.getItem("tour_shown")) return
@@ -37,91 +41,91 @@ export default class extends Controller {
 
     this.tour.addStep({
       id: "summary-cards",
-      title: "Resumen de tu dinero 💰",
-      text: "Aquí puedes ver tu saldo total por moneda, cuánto has gastado o recibido en el período actual y el número de transacciones que llevas registradas. Es tu vista rápida del estado financiero.",
+      title: t("summary_cards.title"),
+      text: t("summary_cards.text"),
       attachTo: { element: ".summary-cards", on: "bottom" },
-      buttons: [{ text: "Siguiente", action: this.tour.next }]
+      buttons: [{ text: t("buttons.next"), action: this.tour.next }]
     })
 
     // 2. Checklist
     if (showChecklist){
       this.tour.addStep({
         id: "onboarding-checklist",
-        title: "Checklist de inicio 📝",
-        text: "Aquí te guiamos paso a paso para configurar tu cuenta y aprovechar todas las funcionalidades. Ideal si estás empezando.",
+        title: t("onboarding_checklist.title"),
+        text: t("onboarding_checklist.text"),
         attachTo: { element: ".onboarding-checklist", on: "bottom" },
-        buttons: [{ text: "Siguiente", action: this.tour.next }]
+        buttons: [{ text: t("buttons.next"), action: this.tour.next }]
       })
     }
     // 3. Sidebar de cuentas
     this.tour.addStep({
       id: "sidebar-accounts",
-      title: "Tus cuentas 🏦",
-      text: "En esta barra lateral puedes ver tus cuentas con su saldo actualizado. Siempre visible para facilitar el seguimiento.",
+      title: t("sidebar_accounts.title"),
+      text: t("sidebar_accounts.text"),
       attachTo: { element: ".account-sidebar", on: "left" },
-      buttons: [{ text: "Siguiente", action: this.tour.next }]
+      buttons: [{ text: t("buttons.next"), action: this.tour.next }]
     })
 
     // 4. Presupuestos
     this.tour.addStep({
       id: "budgets",
-      title: "Presupuestos",
-      text: "Consulta el progreso de tus presupuestos mensuales por categoría.",
+      title: t("budgets.title"),
+      text: t("budgets.text"),
       attachTo: { element: ".budget-overview", on: "bottom" },
       buttons: [
-        { text: "Siguiente", action: this.tour.next }
+        { text: t("buttons.next"), action: this.tour.next }
       ]
     })
 
     // 5. Gráficas
     this.tour.addStep({
       id: "monthly-comparison",
-      title: "Comparación mensual 📊",
-      text: "Compara fácilmente tus ingresos y gastos de cada mes. Te ayuda a ver si estás gastando más de lo que ganas.",
+      title: t("monthly_comparison.title"),
+      text: t("monthly_comparison.text"),
       attachTo: { element: ".monthly-comparison-chart", on: "top" },
-      buttons: [{ text: "Siguiente", action: this.tour.next }]
+      buttons: [{ text: t("buttons.next"), action: this.tour.next }]
     })
     
     this.tour.addStep({
       id: "top-categories",
-      title: "Tus gastos más importantes 🏷️",
-      text: "Aquí ves cuáles son las categorías donde más gastas. Ideal para detectar hábitos o excesos.",
+      title: t("top_categories.title"),
+      text: t("top_categories.text"),
       attachTo: { element: ".top-categories-chart", on: "top" },
-      buttons: [{ text: "Siguiente", action: this.tour.next }]
+      buttons: [{ text: t("buttons.next"), action: this.tour.next }]
     })
     
     this.tour.addStep({
       id: "category-distribution",
-      title: "Distribución por categoría 🎯",
-      text: "Visualiza en qué estás gastando más. Puedes comparar por tipo de gasto y moneda.",
+      title: t("category_distribution.title"),
+      text: t("category_distribution.text"),
       attachTo: { element: ".category-distribution-chart", on: "top" },
-      buttons: [{ text: "Siguiente", action: this.tour.next }]
+      buttons: [{ text: t("buttons.next"), action: this.tour.next }]
     })
     
     this.tour.addStep({
       id: "accumulated-flow",
-      title: "Flujo acumulado 💹",
-      text: "Te muestra cómo evolucionan tus ingresos y gastos a lo largo del tiempo. Sirve para ver tendencias.",
+      title: t("accumulated_flow.title"),
+      text: t("accumulated_flow.text"),
       attachTo: { element: ".accumulated-flow-chart", on: "top" },
-      buttons: [{ text: "Siguiente", action: this.tour.next }]
+      buttons: [{ text: t("buttons.next"), action: this.tour.next }]
     })
     
     this.tour.addStep({
       id: "transactions-table",
-      title: "Transacciones registradas",
-      text: "Esta tabla muestra todas tus transacciones filtradas por período y otras opciones.",
+      title: t("transactions_table.title"),
+      text: t("transactions_table.text"),
       attachTo: { element: ".transactions-table", on: "left" },
-      buttons: [ { text: "Siguiente", action: this.tour.next } ]
+      buttons: [ { text: t("buttons.next"), action: this.tour.next } ]
     })
 
     // 6. FAB - Menú de creación
     this.tour.addStep({
       id: "action-button",
-      title: "Acciones rápidas ➕",
-      text: "Haz clic aquí para agregar una cuenta, una transacción o un presupuesto. Todo lo esencial está a un clic.",
+      title: t("action_button.title"),
+      text: t("action_button.text"),
       attachTo: { element: ".floating-action-button", on: "left" },
       buttons: [{
-        text: "Abrir menú",
+        text: t("action_button.button"),
         action: () => {
           document.querySelector(".floating-action-button").click()
           this.tour.next()
@@ -132,30 +136,30 @@ export default class extends Controller {
     // 7. Crear cuenta
     this.tour.addStep({
       id: "create-account",
-      title: "Crear tu primera cuenta 💼",
-      text: "Empieza por registrar una cuenta, como tu banco o billetera digital.",
+      title: t("create_account.title"),
+      text: t("create_account.text"),
       attachTo: { element: "[data-action='open-new-account-modal']", on: "right" },
-      buttons: [{ text: "Siguiente", action: this.tour.next }]
+      buttons: [{ text: t("buttons.next"), action: this.tour.next }]
     })
 
     // 8. Crear transacción
     this.tour.addStep({
       id: "create-transaction",
-      title: "Registrar transacción 💸",
-      text: "Luego podrás añadir tus ingresos y gastos desde este botón.",
+      title: t("create_transaction.title"),
+      text: t("create_transaction.text"),
       attachTo: { element: "[data-action='open-new-transaction-modal']", on: "right" },
-      buttons: [{ text: "Siguiente", action: this.tour.next }]
+      buttons: [{ text: t("buttons.next"), action: this.tour.next }]
     })
     
 
     // 9. Crear presupuesto
     this.tour.addStep({
       id: "create-budget",
-      title: "Asignar presupuesto 📅",
-      text: "Finalmente, puedes definir cuánto querés gastar por categoría cada mes.",
+      title: t("create_budget.title"),
+      text: t("create_budget.text"),
       attachTo: { element: "[data-action='open-new-budget-modal']", on: "right" },
       buttons: [{
-        text: "Finalizar",
+        text: t("create_budget.button"),
         action: () => {
           localStorage.setItem("tour_shown", "true")
           this.tour.complete()

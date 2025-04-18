@@ -1,0 +1,9 @@
+en:
+  transactions:
+    dashboard:
+      transactions_table:
+        date: "Date"
+        description: "Description"
+        amount: "Amount"
+        account: "Account"
+        tags: "Tags"

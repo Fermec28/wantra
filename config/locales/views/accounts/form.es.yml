@@ -1,0 +1,7 @@
+es:
+  accounts:
+    form:
+      title: "Nueva cuenta"
+      name: "Nombre"
+      balance_currency: "Moneda"
+      submit: "Crear cuenta"

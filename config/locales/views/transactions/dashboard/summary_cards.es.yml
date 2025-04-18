@@ -1,0 +1,10 @@
+es:
+  transactions:
+    dashboard:
+      summary_cards:
+        title: "Resumen"
+        tour_button: "Ver tour"
+        total_balance: "Saldo total disponible en %{currency}"
+        total_expense: "Total gastado en %{currency} durante este período"
+        total_income: "Total recibido en %{currency} durante este período"
+        transaction_count: "Cantidad de transacciones registradas"
