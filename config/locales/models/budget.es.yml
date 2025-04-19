@@ -1,0 +1,27 @@
+es:
+  activerecord:
+    models:
+      budget: "Presupuesto"
+
+    attributes:
+      budget:
+        tag: "Categoría"
+        tag_id: "Categoría"
+        amount: "Monto"
+        amount_currency: "Moneda"
+        month: "Mes"
+
+    errors:
+      models:
+        budget:
+          attributes:
+            tag:
+              required: "debe estar presente"
+            tag_id:
+              blank: "Debe ser seleccionado o creado"
+            amount:
+              blank: "no puede estar en blanco"
+            amount_currency:
+              blank: "debe ser seleccionado"
+            month:
+              blank: "debe ser seleccionado"

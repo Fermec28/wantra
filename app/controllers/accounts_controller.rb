@@ -20,7 +20,10 @@ class AccountsController < ApplicationController
         format.html { redirect_to root_path, notice: "Cuenta creada exitosamente" }
       end
     else
-      render :new, alert: "Error al crear la cuenta"
+      respond_to do |format|
+        format.turbo_stream { render :new, status: :unprocessable_entity }
+        format.html         { render :new, status: :unprocessable_entity }
+      end
     end
   end
 

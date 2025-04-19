@@ -1,0 +1,7 @@
+en:
+  errors:
+    messages:
+      blank: "can't be blank"
+      required: "is required"
+      taken: "is already taken"
+      invalid: "is invalid"

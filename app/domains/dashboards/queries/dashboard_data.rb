@@ -135,7 +135,7 @@ module Dashboards
         Budget.where(user: @user, month: period_range.first.beginning_of_month).map do |budget|
           Budgets::Services::BudgetUsageCalculator.new(
             user: @user,
-            tag_name: budget.tag_name,
+            tag_id: budget.tag_id,
             month: budget.month,
             currency: budget.amount_currency
           ).call

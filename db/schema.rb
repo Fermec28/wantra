@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_05_221041) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_19_164232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -26,14 +26,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_05_221041) do
 
   create_table "budgets", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "tag_name", null: false
     t.date "month", null: false
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "USD", null: false
     t.boolean "repeat_monthly", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "tag_name", "month", "amount_currency"], name: "idx_on_user_id_tag_name_month_amount_currency_d566e452a6", unique: true
+    t.bigint "tag_id"
+    t.index ["tag_id"], name: "index_budgets_on_tag_id"
+    t.index ["user_id", "month"], name: "index_budgets_on_user_id_and_month"
+    t.index ["user_id", "tag_id", "month"], name: "index_budgets_on_user_id_and_tag_id_and_month"
     t.index ["user_id"], name: "index_budgets_on_user_id"
   end
 
@@ -51,6 +53,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_05_221041) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "name"], name: "index_tags_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
@@ -66,6 +69,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_05_221041) do
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "USD", null: false
     t.index ["account_id"], name: "index_transactions_on_account_id"
+    t.index ["user_id", "date"], name: "index_transactions_on_user_id_and_date"
+    t.index ["user_id", "txn_kind"], name: "index_transactions_on_user_id_and_txn_kind"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
@@ -82,6 +87,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_05_221041) do
   end
 
   add_foreign_key "accounts", "users"
+  add_foreign_key "budgets", "tags"
   add_foreign_key "budgets", "users"
   add_foreign_key "taggings", "tags"
   add_foreign_key "taggings", "transactions", column: "tagged_transaction_id"

@@ -6,33 +6,33 @@ class BudgetsController < ApplicationController
   end
 
   def create
-    attrs = budget_params.dup
-    attrs[:month] = Date.parse("#{attrs[:month]}-01") if attrs[:month].present?
-    @budget = current_user.budgets.build(attrs)
-
-    if @budget.save
+    result = Budgets::Services::BudgetCreator.new(user: current_user, params: budget_params).call
+    @budget = result.budget
+    if result.success?
       @budgets_progress = Budget.where(user: current_user, month: @budget.month.beginning_of_month).map do |budget|
-        result = Budgets::Services::BudgetUsageCalculator.new(
+        Budgets::Services::BudgetUsageCalculator.new(
           user: current_user,
-          tag_name: budget.tag_name,
-          month: budget.month,
-          currency: budget.amount_currency
+          tag_id: @budget.tag_id,
+          month: @budget.month,
+          currency: @budget.amount_currency
         ).call
-        result if result.present?
       end.compact
 
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to root_path, notice: "Presupuesto creado exitosamente." }
+        format.html { redirect_to root_path, notice: t(".success") }
       end
     else
-      render :new, alert: "Error al crear la cuenta: #{@budget.errors.full_messages.join(', ')}"
+      respond_to do |format|
+        format.turbo_stream { render :new, status: :unprocessable_entity }
+        format.html         { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
   private
 
   def budget_params
-    params.require(:budget).permit(:tag_name, :month, :amount, :amount_currency, :repeat_monthly)
+    params.require(:budget).permit(:month, :amount, :amount_currency, :repeat_monthly, :tag_name)
   end
 end

@@ -1,6 +1,6 @@
 es:
   budgets:
-    new:
+    form:
       title: "Nuevo presupuesto"
       tag_name: "Categoría"
       month: "Mes"

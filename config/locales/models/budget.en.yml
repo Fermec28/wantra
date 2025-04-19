@@ -1,0 +1,28 @@
+en:
+  activerecord:
+    models:
+      budget: "Budget"
+
+    attributes:
+      budget:
+        tag: "Category"
+        tag_id: "Category"
+        amount: "Amount"
+        amount_currency: "Currency"
+        month: "Month"
+        repeat_monthly: "Repeat Monthly"
+
+    errors:
+      models:
+        budget:
+          attributes:
+            tag:
+              required: "must be present"
+            tag_id:
+              blank: "must be selected or created"
+            amount:
+              blank: "can't be blank"
+            amount_currency:
+              blank: "must be selected"
+            month:
+              blank: "must be selected"

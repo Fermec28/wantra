@@ -1,9 +1,10 @@
 module Budgets
   module Services
     class BudgetUsageCalculator
-      def initialize(user:, tag_name:, month:, currency:)
+      def initialize(user:, tag_id:, month:, currency:)
         @user = user
-        @tag_name = tag_name.downcase.strip
+        @tag_id = tag_id
+        @tag_name = user.tags.find_by(id: tag_id)&.name
         @month = month.beginning_of_month
         @currency = currency
       end
@@ -11,7 +12,7 @@ module Budgets
       def call
         budget = Budget.find_by(
           user: @user,
-          tag_name: @tag_name,
+          tag_id: @tag_id,
           month: @month,
           amount_currency: @currency
         )
@@ -19,10 +20,17 @@ module Budgets
         return nil unless budget
 
         spent = @user.transactions
-          .includes(:tags, :account)
-          .where(txn_kind: "expense", date: @month..@month.end_of_month)
-          .select { |t| t.account.balance_currency == @currency && t.tags.map(&:name).include?(@tag_name) }
-          .sum(&:amount)
+          .joins(:account, :tags)
+          .where(
+            txn_kind: "expense",
+            date: @month..@month.end_of_month,
+            accounts: { balance_currency: @currency },
+            tags: { id: @tag_id }
+          )
+          .distinct
+          .sum(:amount_cents)
+
+          spent = Money.new(spent, @currency)
 
         {
           budget: budget.amount,

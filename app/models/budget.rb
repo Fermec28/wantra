@@ -1,15 +1,15 @@
 class Budget < ApplicationRecord
   belongs_to :user
+  belongs_to :tag
 
   monetize :amount_cents, with_model_currency: :amount_currency
 
-  validates :tag_name, presence: true
   validates :month, presence: true
   validates :amount_cents, presence: true
   validates :amount_currency, presence: true
 
   validates :user_id, uniqueness: {
-    scope: [ :tag_name, :month, :amount_currency ],
+    scope: [ :tag_id, :month, :amount_currency ],
     message: "ya tiene un presupuesto para esa categoría, mes y moneda"
   }
 
