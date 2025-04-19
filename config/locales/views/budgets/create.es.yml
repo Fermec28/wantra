@@ -1,0 +1,4 @@
+es:
+  budgets:
+    create:
+      success: "Presupuesto creado exitosamente 🎯"

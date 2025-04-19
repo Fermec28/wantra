@@ -1,47 +1,43 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["accountTo", "amountTo"]
+  static targets = [
+    "accountFrom", "accountTo",
+    "amountFrom", "amountTo",
+    "txnKind", "amountFromInput", "amountToInput"
+  ]
 
   connect() {
-    const select = this.element.querySelector('[name="transaction[account_id]"]')
-    if (select) {
-      this.update({ target: select })
-    }
-
-    const toSelect = this.element.querySelector('[name="transaction[to_account_id]"]')
-    if (toSelect) {
-      this.updateToAccount({ target: toSelect })
-    }
+    this.updateAmountColors()
   }
 
   kindChanged(event) {
-    const kind = event.target.value
+    this.updateVisibility()
+    this.updateAmountColors()
+  }
+
+  updateVisibility() {
+    const kind = this.txnKindTarget.value
     const isTransfer = kind === "transfer"
 
     this.accountToTarget.classList.toggle("hidden", !isTransfer)
     this.amountToTarget.classList.toggle("hidden", !isTransfer)
   }
 
-  update(event) {
-    const select = event.target
-    const selected = select.options[select.selectedIndex].text
-    const preview = document.getElementById("account-summary")
+  updateAmountColors() {
+    const kind = this.txnKindTarget.value
 
-    if (selected && preview) {
-      preview.textContent = `Cuenta seleccionada: ${selected}`
-      preview.classList.remove("hidden")
-    }
-  }
+    // Reset classes
+    this.amountFromInputTarget.className = "block w-full border rounded mt-1"
+    this.amountToInputTarget.className = "block w-full border rounded mt-1"
 
-  updateToAccount(event) {
-    const select = event.target
-    const selected = select.options[select.selectedIndex].text
-    const preview = document.getElementById("to-account-summary")
-  
-    if (selected && preview) {
-      preview.textContent = `Cuenta destino: ${selected}`
-      preview.classList.remove("hidden")
+    if (kind === "income") {
+      this.amountFromInputTarget.classList.add("text-green-600")
+    } else if (kind === "expense") {
+      this.amountFromInputTarget.classList.add("text-red-500")
+    } else if (kind === "transfer") {
+      this.amountFromInputTarget.classList.add("text-red-500")
+      this.amountToInputTarget.classList.add("text-green-600")
     }
   }
 }

@@ -1,0 +1,8 @@
+<%= turbo_stream.append "notifications", partial: "shared/toast", locals: { message: t(".success"), type: :success } %>
+<%= turbo_stream.replace "budget_overview" do %>
+  <%= render "transactions/dashboard/budget_overview", budgets_progress: @budgets_progress %>
+<% end %>
+
+<%= turbo_stream.update "modal" do %>
+  "" <!-- Cierra el modal -->
+<% end %>

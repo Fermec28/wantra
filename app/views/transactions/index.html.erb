@@ -1,4 +1,10 @@
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6" data-controller="tour">
+  <!-- Sidebar sticky -->
+  <div class="lg:col-span-1">
+    <div class="sticky top-4">
+      <%= render "shared/account_sidebar" %>
+    </div>
+  </div>
   <!-- Contenido principal -->
   <div class="lg:col-span-3 space-y-6">
     
@@ -9,8 +15,9 @@
     <%= render "transactions/dashboard/onboarding_checklist"%>
     
     <!-- 📊 Presupuestos  -->
-    <%= render "transactions/dashboard/budget_overview"%>
-
+    <div class="bg-white rounded-2xl shadow p-6 budget-overview">
+      <%= render "transactions/dashboard/budget_overview"%>
+    </div>
     <!-- 🧮 Comparación mensual -->
     <%= render "transactions/dashboard/monthly_comparison_chart" %>
 
@@ -28,10 +35,5 @@
 
   </div>
 
-  <!-- Sidebar sticky -->
-  <div class="lg:col-span-1">
-    <div class="sticky top-4">
-      <%= render "shared/account_sidebar" %>
-    </div>
-  </div>
+  
 </div>

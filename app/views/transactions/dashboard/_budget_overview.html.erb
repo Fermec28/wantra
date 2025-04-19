@@ -1,26 +1,25 @@
-<div class="bg-white rounded-2xl shadow p-6 budget-overview">
-  <h2 class="text-sm font-semibold text-gray-600 mb-4"><%= t(".title") %></h2>
+<%= turbo_frame_tag "budget_overview" do %>
+    <h2 class="text-sm font-semibold text-gray-600 mb-4"><%= t(".title") %></h2>
+    <% if @budgets_progress.any? %>
+      <% @budgets_progress.each do |b| %>
+        <div class="mb-4">
+          <div class="flex justify-between text-sm text-gray-600">
+            <span><%= b[:tag_name].capitalize %> (<%= b[:currency] %>)</span>
+            <span>
+              <%= number_to_currency(b[:spent], unit: "#{b[:currency]} ") %> /
+              <%= number_to_currency(b[:budget], unit: "#{b[:currency]} ") %>
+            </span>
+          </div>
 
-  <% if @budgets_progress.any? %>
-    <% @budgets_progress.each do |b| %>
-      <div class="mb-4">
-        <div class="flex justify-between text-sm text-gray-600">
-          <span><%= b[:tag_name].capitalize %> (<%= b[:currency] %>)</span>
-          <span>
-            <%= number_to_currency(b[:spent], unit: "#{b[:currency]} ") %> /
-            <%= number_to_currency(b[:budget], unit: "#{b[:currency]} ") %>
-          </span>
-        </div>
-
-        <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-          <div
-            class="h-2 rounded-full <%= b[:exceeded] ? 'bg-red-500' : 'bg-blue-600' %>"
-            style="width: <%= [(b[:spent].to_f / b[:budget].to_f * 100).round, 100].min %>%">
+          <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+            <div
+              class="h-2 rounded-full <%= b[:exceeded] ? 'bg-red-500' : 'bg-blue-600' %>"
+              style="width: <%= [(b[:spent].to_f / b[:budget].to_f * 100).round, 100].min %>%">
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
+    <% else %>
+      <p class="text-sm text-gray-500"><%= t(".no_budgets") %></p>
     <% end %>
-  <% else %>
-    <p class="text-sm text-gray-500"><%= t(".no_budgets") %></p>
-  <% end %>
-</div>
+<% end %>

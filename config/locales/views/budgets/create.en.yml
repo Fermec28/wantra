@@ -1,0 +1,4 @@
+en:
+  budgets:
+    create:
+      success: "Budget created successfully 🎯"

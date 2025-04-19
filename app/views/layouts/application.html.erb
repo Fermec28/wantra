@@ -42,17 +42,6 @@
     </header>
 
     <main class="max-w-5xl mx-auto px-4">
-      <% if notice %>
-        <div class="mb-4 bg-green-100 text-green-700 px-4 py-2 rounded">
-          <%= notice %>
-        </div>
-      <% end %>
-
-      <% if alert %>
-        <div class="mb-4 bg-red-100 text-red-700 px-4 py-2 rounded">
-          <%= alert %>
-        </div>
-      <% end %>
       <%= yield %>
     </main>
 
@@ -85,5 +74,6 @@
     </div>
     <%= turbo_frame_tag "modal", target: "_top" %>
     <%= export_translations_to_js("tour") %>
+    <div id="notifications" class="fixed top-4 right-6 z-51 space-y-2"></div>
   </body>
 </html>

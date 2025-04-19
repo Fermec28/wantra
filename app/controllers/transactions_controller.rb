@@ -62,8 +62,12 @@ class TransactionsController < ApplicationController
       service.call
     end
 
-    redirect_to transactions_path, notice: "Transacción creada con éxito."
+    redirect_to transactions_path
   rescue => e
-    redirect_to transactions_path, alert: "Error al crear transacción: #{e.message}"
+    @accounts = current_user.accounts
+    render turbo_stream: turbo_stream.append("notifications", partial: "shared/toast", locals: {
+      message: t("transactions.create.error"),
+      type: :error
+    }), status: :unprocessable_entity
   end
 end

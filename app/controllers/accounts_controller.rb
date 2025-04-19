@@ -12,7 +12,13 @@ class AccountsController < ApplicationController
   def create
     @account = current_user.accounts.new(account_params)
     if @account.save
-      redirect_to accounts_path, notice: "Cuenta creada exitosamente"
+      respond_to do |format|
+        format.turbo_stream do
+          @accounts = current_user.accounts
+          format.turbo_stream
+        end
+        format.html { redirect_to root_path, notice: "Cuenta creada exitosamente" }
+      end
     else
       render :new, alert: "Error al crear la cuenta"
     end

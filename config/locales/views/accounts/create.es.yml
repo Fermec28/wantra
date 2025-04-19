@@ -1,0 +1,4 @@
+es:
+  accounts:
+    create:
+      success: "Cuenta creada exitosamente 🏦"

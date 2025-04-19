@@ -1,0 +1,21 @@
+<%# message: texto | type: success, error, warning, info %>
+<% toast_styles = {
+  success: "bg-green-100 border border-green-300 text-green-800",
+  error:   "bg-red-100 border border-red-300 text-red-800",
+  warning: "bg-yellow-100 border border-yellow-300 text-yellow-800",
+  info:    "bg-blue-100 border border-blue-300 text-blue-800"
+} %>
+
+<div
+  class="toast transition transform duration-300 ease-in-out rounded-lg p-4 shadow-md w-80 <%= toast_styles[type || :info] %>"
+  data-controller="toast"
+  data-action="click->toast#dismiss"
+>
+  <div class="flex justify-between items-start gap-2">
+    <div class="text-sm font-medium leading-snug">
+      <%= message %>
+    </div>
+    <button class="text-xl leading-none font-bold text-gray-500 hover:text-gray-700" aria-label="Cerrar">&times;</button>
+  </div>
+</div>
+

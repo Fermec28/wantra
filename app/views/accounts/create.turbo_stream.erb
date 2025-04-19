@@ -1,0 +1,8 @@
+<%= turbo_stream.append "notifications", partial: "shared/toast", locals: { message: t(".success"), type: :success } %>
+<%= turbo_stream.replace "account_sidebar" do %>
+  <%= render "shared/account_sidebar", accounts: @accounts %>
+<% end %>
+
+<%= turbo_stream.update "modal" do %>
+  "" <!-- Esto cierra el modal -->
+<% end %>

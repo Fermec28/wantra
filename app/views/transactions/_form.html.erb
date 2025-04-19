@@ -1,69 +1,87 @@
-<%= form_with url: transactions_path, method: :post, local: true, data: { controller: "transaction-form" } do |f| %>
+<%= form_with model: @transaction, local: true, data: { controller: "transaction-form" }, class: "space-y-6" do |f| %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Tipo -->
+    <div>
+      <%= label_tag :txn_kind, t(".kind"), class: "block text-sm font-medium text-gray-700" %>
+      <%= select_tag "transaction[txn_kind]",
+          options_for_select([
+            [t(".kinds.income"), "income"],
+            [t(".kinds.expense"), "expense"],
+            [t(".kinds.transfer"), "transfer"]
+          ]),
+          class: "mt-1 block w-full border-gray-300 rounded shadow-sm focus:ring focus:ring-blue-200",
+          data: {
+            transaction_form_target: "txnKind",
+            action: "change->transaction-form#kindChanged" } %>
+      <%= field_error(@transaction, :txn_kind) %>
+    </div>
 
-  <!-- Tipo -->
-  <div class="mb-4">
-    <%= label_tag :txn_kind, t(".kind") %>
-    <%= select_tag "transaction[txn_kind]",
-        options_for_select([
-          [t(".kinds.income"), "income"],
-          [t(".kinds.expense"), "expense"],
-          [t(".kinds.transfer"), "transfer"]
-        ]),
-        class: "border rounded w-full",
-        data: { action: "change->transaction-form#kindChanged" } %>
-  </div>
+    <!-- Fecha -->
+    <div>
+      <%= label_tag :date, t(".date"), class: "block text-sm font-medium text-gray-700" %>
+      <%= date_field_tag "transaction[date]", Date.today,
+            class: "mt-1 block w-full border-gray-300 rounded shadow-sm" %>
+      <%= field_error(@transaction, :date) %>
+    </div>
 
-  <!-- Cuenta Origen -->
-  <div class="mb-4" data-transaction-form-target="accountFrom">
-    <%= label_tag :account_id, t(".account_from") %>
-    <%= select_tag "transaction[account_id]", options_from_collection_for_select(@accounts, :id, :label_for_select), class: "border rounded w-full", data: { action: "change->transaction-form#update" } %>
-    <div id="account-summary" class="mt-2 text-sm text-gray-600 bg-gray-100 p-2 rounded hidden"></div>
-  </div>
+    <!-- Cuenta Origen -->
+    <div data-transaction-form-target="accountFrom">
+      <%= label_tag :account_id, t(".account_from"), class: "block text-sm font-medium text-gray-700" %>
 
-  <!-- Monto -->
-  <div class="mb-4" data-transaction-form-target="amountFrom">
-    <%= label_tag :amount, t(".amount_from") %>
-    <%= number_field_tag "transaction[amount]", nil, step: 0.01, class: "border rounded w-full" %>
-  </div>
+      <%= select_tag "transaction[account_id]",
+          options_from_collection_for_select(@accounts, :id, :label_for_select),
+          class: "mt-1 block w-full border-gray-300 rounded shadow-sm"%>
+      <%= field_error(@transaction, :account_id) %>
+    </div>
 
-  <!-- Cuenta Destino -->
-  <div class="mb-4 hidden" data-transaction-form-target="accountTo">
-    <%= label_tag :to_account_id, t(".account_to") %>
-    <%= select_tag "transaction[to_account_id]", options_from_collection_for_select(@accounts, :id, :label_for_select), class: "border rounded w-full", data: { action: "change->transaction-form#updateToAccount" } %>
-    <div id="to-account-summary" class="mt-2 text-sm text-gray-600 bg-gray-100 p-2 rounded hidden"></div>
-  </div>
+    <!-- Monto -->
+    <div data-transaction-form-target="amountFrom">
+      <%= label_tag :amount, t(".amount_from"), class: "block text-sm font-medium text-gray-700" %>
+      <%= number_field_tag "transaction[amount]", nil, step: 0.01,
+            class: "mt-1 block w-full border-gray-300 rounded shadow-sm",
+            data: { transaction_form_target: "amountFromInput" } %>
+      <%= field_error(@transaction, :amount) %>
+    </div>
 
-  <!-- Monto destino -->
-  <div class="mb-4 hidden" data-transaction-form-target="amountTo">
-    <%= label_tag :amount_to, t(".amount_to") %>
-    <%= number_field_tag "transaction[amount_to]", nil, step: 0.01, class: "border rounded w-full" %>
-  </div>
+    <!-- Cuenta Destino -->
+    <div class="hidden" data-transaction-form-target="accountTo">
+      <%= label_tag :to_account_id, t(".account_to"), class: "block text-sm font-medium text-gray-700" %>
+      <%= select_tag "transaction[to_account_id]",
+          options_from_collection_for_select(@accounts, :id, :label_for_select),
+          class: "mt-1 block w-full border-gray-300 rounded shadow-sm" %>
+      <%= field_error(@transaction, :to_account_id) %>
+    </div>
 
-  <!-- Descripción -->
-  <div class="mb-4">
-    <%= label_tag :description, t(".description") %>
-    <%= text_field_tag "transaction[description]", nil, class: "border rounded w-full" %>
-  </div>
+    <!-- Monto destino -->
+    <div class="hidden" data-transaction-form-target="amountTo">
+      <%= label_tag :amount_to, t(".amount_to"), class: "block text-sm font-medium text-gray-700" %>
+      <%= number_field_tag "transaction[amount_to]", nil, step: 0.01,
+            class: "mt-1 block w-full border-gray-300 rounded shadow-sm",
+            data: { transaction_form_target: "amountToInput" }  %>
+      <%= field_error(@transaction, :amount_to) %>
+    </div>
 
-  <!-- Fecha -->
-  <div class="mb-4">
-    <%= label_tag :date, t(".date") %>
-    <%= date_field_tag "transaction[date]", Date.today, class: "border rounded w-full" %>
+    <!-- Descripción -->
+    <div class="md:col-span-2">
+      <%= label_tag :description, t(".description"), class: "block text-sm font-medium text-gray-700" %>
+      <%= text_field_tag "transaction[description]", nil,
+            class: "mt-1 block w-full border-gray-300 rounded shadow-sm" %>
+      <%= field_error(@transaction, :description) %>
+    </div>
   </div>
 
   <!-- Etiquetas -->
-  <div class="mb-4" data-transaction-form-target="tags">
-    <%= label_tag :tag_list, t(".tags") %>
+  <div class="mb-4 mt-4" data-transaction-form-target="tags">
+    <%= label_tag :tag_list, t(".tags"), class: "block text-sm font-medium text-gray-700" %>
     <%= select_tag "transaction[tag_list][]",
           options_from_collection_for_select(current_user.tags, :name, :name),
           multiple: true,
-          class: "border rounded w-full bg-white text-sm",
+          class: "border border-gray-300 rounded w-full bg-white text-sm shadow-sm",
           data: { controller: "tag-select" } %>
   </div>
 
   <!-- Botón -->
-  <div>
-    <%= submit_tag t(".submit"), class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+  <div class="text-right">
+    <%= submit_tag t(".submit"), class: "bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-medium" %>
   </div>
-
 <% end %>

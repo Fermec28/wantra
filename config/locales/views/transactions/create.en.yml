@@ -1,0 +1,5 @@
+en:
+  transactions:
+    create:
+      success: "Transaction created successfully."
+      error: "There was an error creating the transaction. Please check the data and try again."
